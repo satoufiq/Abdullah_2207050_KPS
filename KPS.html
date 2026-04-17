@@ -1,606 +1,253 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KUET Photography Society</title>
+    <meta name="description" content="KUET Photography Society home page.">
+    <title>Home | KUET Photography Society</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <!-- nav -->
+<body class="luxury-site">
+    <div class="site-loader" id="site-loader"><span></span></div>
+
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo-section">
                 <img src="images/logo.png" alt="KUET Photography Club Logo" class="club-logo">
                 <span class="club-name">KUET Photography Society</span>
             </div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#collections">Collections</a></li>
-                <li><a href="#team">Team</a></li>
-                <li><a href="#events">Events</a></li>
-                <li><a href="#achievements">Achievements</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#contact" class="nav-register">Register</a></li>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="nav-menu">
+                <li><a class="page-link" href="KPS.html">Home</a></li>
+                <li><a class="page-link" href="about.html">About</a></li>
+                <li><a class="page-link" href="gallery.html">Gallery</a></li>
+                <li><a class="page-link" href="events.html">Events</a></li>
+                <li><a class="page-link" href="team.html">Team</a></li>
+                <li><a class="page-link" href="contact.html">Contact</a></li>
+                <li><a class="page-link" href="register.html">Register</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- hero -->
     <section class="hero" id="home">
-        <div class="hero-content">
-            <img src="images/club-logo-large.png" alt="KUET Photography Club Logo" class="hero-logo">
-            <h1>KUET Photography Society</h1>
-            <p class="tagline">Capturing Moments, Creating Memories</p>
-            <div class="intro-info">
-                <p class="mission"><strong>Mission:</strong> To foster creativity and passion for photography through learning and collaboration</p>
-                <p class="founding"><strong>Founded:</strong> 2018 | <strong>Institution:</strong> Khulna University of Engineering & Technology</p>
-            </div>
-            <a class="cta-button" href="#collections">Explore Collections</a>
+        <div class="hero-slider" aria-hidden="true">
+            <div class="hero-slide is-active" style="background-image: url('images/hero-banner.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('images/collections/nature/472355752_1010415957589849_7730853507225014461_n.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('images/collections/extra/476166310_1031456308819147_2939687961136825344_n.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('images/collections/extra/556579849_1203912284906881_8471027009373828179_n.jpg');"></div>
         </div>
-        <div class="hero-banner" style="background-image: url('images/hero-banner.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="hero-content reveal-target">
+            <p class="hero-badge">KHULNA UNIVERSITY OF ENGINEERING AND TECHNOLOGY</p>
+            <h1>Light, Culture, Stories</h1>
+            <p class="tagline">Where passion meets precision. A photography society crafting visual narratives.</p>
+            <div class="hero-actions">
+                <a class="cta-button page-link" href="gallery.html">Explore Gallery</a>
+                <a class="cta-button cta-button-secondary page-link" href="contact.html">Join Us</a>
+            </div>
         </div>
     </section>
 
-    <!-- galleries -->
-    <section class="collections" id="collections">
-        <h2>Featured Collections</h2>
-        
-        <!-- portraits -->
-        <div class="collection-category">
-            <h3>Portrait Photography</h3>
-            <div class="gallery-shell">
-                <div class="gallery" id="portrait-gallery">
-                    <div class="gallery-item">
-                        <img src="images/collections/portrait/475299047_1023529802945131_2131160722920590617_n.jpg" alt="Portrait photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Shahriar</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/portrait/6071136886979673060.jpg" alt="Portrait photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Abdullah</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/portrait/msg-880120795-8642.jpg" alt="Portrait photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Toufiq</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/portrait/photo_6129600900935826376_w.jpg" alt="Portrait photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Shahriar</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/portrait/photo_6199518806691395404_w.jpg" alt="Portrait photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Abdullah</p>
-                        </div>
-                    </div>
-                </div>
+    <section class="featured-intro reveal-target">
+        <div class="intro-grid">
+            <div class="intro-card">
+                <p class="intro-eyebrow">About KUET Photography Society</p>
+                <h2>Building a culture of excellence</h2>
+                <p>We're a community of visual storytellers at KUET, dedicated to exploring light, composition, and narrative through photography. Since 2018, we've trained members, published work, and captured the essence of campus life.</p>
+                <a class="inline-link" href="about.html">Learn our story →</a>
             </div>
-        </div>
-
-        <!-- streets -->
-        <div class="collection-category">
-            <h3>Street Photography</h3>
-            <div class="gallery-shell">
-                <div class="gallery" id="street-gallery">
-                    <div class="gallery-item">
-                        <img src="images/collections/street/6088893102120091324.jpg" alt="Street photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Toufiq</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/street/msg-880120795-7949.jpg" alt="Street photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Shahriar</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/street/msg-880120795-7951.jpg" alt="Street photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Abdullah</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/street/msg-880120795-7954.jpg" alt="Street photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Toufiq</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/street/msg-880120795-8069.jpg" alt="Street photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Shahriar</p>
-                        </div>
-                    </div>
+            <div class="intro-stats">
+                <div class="stat-block reveal-target">
+                    <span class="stat-value">70+</span>
+                    <span class="stat-name">Active Members</span>
                 </div>
-            </div>
-        </div>
-
-        <!-- nature stuff -->
-        <div class="collection-category">
-            <h3>Nature & Wildlife</h3>
-            <div class="gallery-shell">
-                <div class="gallery" id="nature-gallery">
-                    <div class="gallery-item">
-                        <img src="images/collections/nature/472355752_1010415957589849_7730853507225014461_n.jpg" alt="Nature photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Abdullah</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/nature/472714126_1010425507588894_6398813533909835706_n.jpg" alt="Nature photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Toufiq</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/nature/472745128_1010653650899413_91365405781526848_n.jpg" alt="Nature photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Shahriar</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/nature/475124772_1024661486165296_1969224454520076581_n.jpg" alt="Nature photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Abdullah</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/nature/msg-880120795-7939.jpg" alt="Nature photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Toufiq</p>
-                        </div>
-                    </div>
+                <div class="stat-block reveal-target">
+                    <span class="stat-value">32+</span>
+                    <span class="stat-name">Annual Events</span>
                 </div>
-            </div>
-        </div>
-
-        <!-- events and architecture -->
-        <div class="collection-category">
-            <h3>Events and Architecture</h3>
-            <div class="gallery-shell">
-                <div class="gallery" id="event-gallery">
-                    <div class="gallery-item">
-                        <img src="images/collections/event/msg-880120795-7931.jpg" alt="Event photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Shahriar</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/event/photo_6192964703777568480_w.jpg" alt="Event photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Abdullah</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/event/photo_6204123097532054660_w.jpg" alt="Event photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Toufiq</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/event/photo_6208409659577056092_w.jpg" alt="Event photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Shahriar</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/event/photo_6229000166585776102_w.jpg" alt="Event photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Abdullah</p>
-                        </div>
-                    </div>
+                <div class="stat-block reveal-target">
+                    <span class="stat-value">14</span>
+                    <span class="stat-name">Major Awards</span>
                 </div>
-            </div>
-        </div>
-
-        <!-- abstract -->
-        <div class="collection-category">
-            <h3>Abstract Photography</h3>
-            <div class="gallery-shell">
-                <div class="gallery" id="product-gallery">
-                    <div class="gallery-item">
-                        <img src="images/collections/product/msg-880120795-7930.jpg" alt="Abstract photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Toufiq</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/product/msg-880120795-7940.jpg" alt="Abstract photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Shahriar</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/product/msg-880120795-7947.jpg" alt="Abstract photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Abdullah</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/product/msg-880120795-7958.jpg" alt="Abstract photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Toufiq</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/product/msg-880120795-7962.jpg" alt="Abstract photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Shahriar</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- creative stuff -->
-        <div class="collection-category">
-            <h3>Experimental & Creative</h3>
-            <div class="gallery-shell">
-                <div class="gallery" id="creative-gallery">
-                    <div class="gallery-item">
-                        <img src="images/collections/creative/470205099_994533485844763_4587247888146869329_n.jpg" alt="Creative photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Abdullah</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/creative/472284306_1010420354256076_9118506381370007276_n.jpg" alt="Creative photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Toufiq</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/creative/472785056_1010415087589936_793016476619826984_n.jpg" alt="Creative photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Shahriar</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/creative/474908052_1024641812833930_1691534703905046745_n.jpg" alt="Creative photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Abdullah</p>
-                        </div>
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/collections/creative/474909006_1024398416191603_4667525587257047923_n.jpg" alt="Creative photography by member">
-                        <div class="image-overlay">
-                            <p class="photographer">By: Toufiq</p>
-                        </div>
-                    </div>
+                <div class="stat-block reveal-target">
+                    <span class="stat-value">8</span>
+                    <span class="stat-name">Photography Genres</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- team -->
-    <section class="team" id="team">
-        <h2>Our Team</h2>
-        <div class="team-container">
-            <div class="team-card">
-                <img src="images/members/1.jpg" alt="Club President profile picture">
-                <h3>Shahriar Abdullah</h3>
-                <p class="role">President</p>
-                <p class="bio">Passionate about landscape and documentary photography with 5 years of experience.</p>
-            </div>
-            <div class="team-card">
-                <img src="images/members/2.jpg" alt="Vice President profile picture">
-                <h3>Nibir Hasan</h3>
-                <p class="role">Vice President</p>
-                <p class="bio">Specializing in portrait and fashion photography, dedicated to mentoring new members.</p>
-            </div>
-            <div class="team-card">
-                <img src="images/members/3.jpg" alt="Secretary profile picture">
-                <h3>Priom Sarker</h3>
-                <p class="role">Secretary</p>
-                <p class="bio">Street photographer and events coordinator, passionate about visual storytelling.</p>
-            </div>
-            <div class="team-card">
-                <img src="images/members/4.jpg" alt="Active member profile picture">
-                <h3>Ariful Islam</h3>
-                <p class="role">Active Member</p>
-                <p class="bio">Nature and wildlife photographer, loves capturing the beauty of natural ecosystems.</p>
-            </div>
-            <div class="team-card">
-                <img src="images/members/5.jpg" alt="Active member profile picture">
-                <h3>Amdadul Haque</h3>
-                <p class="role">Active Member</p>
-                <p class="bio">Product photographer and lighting specialist, constantly experimenting with new techniques.</p>
-            </div>
-            <div class="team-card">
-                <img src="images/members/5.jpg" alt="Active member profile picture">
-                <h3>Sheikh Arif</h3>
-                <p class="role">Active Member</p>
-                <p class="bio">Creative and experimental photographer, pushing boundaries with unconventional approaches.</p>
-            </div>
+    <section class="featured-work" id="highlights">
+        <div class="section-heading">
+            <p class="eyebrow">This Week's Highlights</p>
+            <h2>Curated moments from our community</h2>
         </div>
-    </section>
-
-    <!-- events & activities -->
-    <section class="events" id="events">
-        <h2>Events & Activities</h2>
-        <div class="table-container">
-            <table class="events-table">
-                <thead>
-                    <tr>
-                        <th>Event Name</th>
-                        <th>Type</th>
-                        <th>Date</th>
-                        <th>Participants</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Morning Photowalk-Teligati</td>
-                        <td>Photowalk</td>
-                        <td>April 15, 2026</td>
-                        <td>10</td>
-                        <td class="status-upcoming">Going on</td>
-                    </tr>
-                    <tr>
-                        <td>Lighting & Composition Workshop</td>
-                        <td>Workshop</td>
-                        <td>April 22, 2026</td>
-                        <td>50</td>
-                        <td class="status-upcoming">Upcoming</td>
-                    </tr>
-                    <tr>
-                        <td>Winter Photography Competition</td>
-                        <td>Competition</td>
-                        <td>December 1, 2026</td>
-                        <td>50+</td>
-                        <td class="status-registration">Registration</td>
-                    </tr>
-                    <tr>
-                        <td>Campus Exhibition - KUETians Clicks</td>
-                        <td>Exhibition</td>
-                        <td>May 20 - June 5, 2026</td>
-                        <td>100+</td>
-                        <td class="status-upcoming">Upcoming</td>
-                    </tr>
-                    <tr>
-                        <td>Annual Awards Ceremony</td>
-                        <td>Competition</td>
-                        <td>December 1, 2026</td>
-                        <td>20</td>
-                        <td class="status-upcoming">Upcoming</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- achievements -->
-    <section class="achievements" id="achievements">
-        <h2>Achievements & Recognition</h2>
-        <div class="achievements-wrapper">
-            <div class="achievements-container">
-                <div class="achievement-category">
-                    <h3>Awards</h3>
-                    <ul class="achievements-list">
-                        <li>Best Cultural Club - KUET Awards 2024</li>
-                        <li>Visual Storytelling - National Student Media Awards 2023</li>
-                        <li>Best Documentary Series - Student Photography Festival 2023</li>
-                    </ul>
+        <div class="featured-work-grid">
+            <article class="feature-card feature-primary reveal-target featured-photo" data-title="Quiet Light, Strong Composition" data-by="Photographer: Abdullah Al Nafi" data-meta="Category: Nature | Lens: 50mm | Location: KUET Lake">
+                <img src="images/collections/extra/560642219_1215681497063293_2118513156112656301_n.jpg" alt="Photo of the week">
+                <div class="feature-card-content">
+                    <p class="feature-label">Photo of the Week</p>
+                    <h3>Quiet Light, Strong Composition</h3>
+                    <p>A nature frame balancing atmosphere with narrative depth.</p>
+                    <button class="learn-more" data-lightbox-trigger>View Details</button>
                 </div>
-                <div class="achievement-category">
-                    <h3>Publications</h3>
-                    <ul class="achievements-list">
-                        <li>Featured in "Student Photography in South Asia" Magazine 2024</li>
-                        <li>Monthly Column in KUET News - "Through the Lens"</li>
-                        <li>Online Exhibition on Photography Weekly Platform</li>
-                    </ul>
-                </div>
-                <div class="achievement-category">
-                    <h3>Collaborations</h3>
-                    <ul class="achievements-list">
-                        <li>Partnership with Bangladesh Photography Association</li>
-                        <li>Joint Workshop with Professional Photographers</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- learning -->
-    <section class="learning" id="learning">
-        <h2>Learning & Development</h2>
-        <div class="learning-wrapper">
-            <div class="learning-container">
-                <div class="skill-category">
-                    <h3>Photography Skills</h3>
-                    <ul class="skills-list">
-                        <li>Composition & Framing Techniques</li>
-                        <li>Lighting Principles (Natural & Artificial)</li>
-                        <li>Color Theory & White Balance</li>
-                        <li>Portrait Photography Fundamentals</li>
-                        <li>Landscape Photography Fundamentals</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Editing Tools & Software</h3>
-                    <ul class="skills-list">
-                        <li>Adobe Lightroom - RAW Processing</li>
-                        <li>Adobe Photoshop - Advanced Editing</li>
-                        <li>Color Grading Techniques</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Training Sessions</h3>
-                    <ul class="skills-list">
-                        <li>Weekly Photography Theory Classes</li>
-                        <li>Hands-on Equipment Training</li>
-                        <li>Digital Marketing for Photography</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- bts -->
-    <section class="behind-scenes" id="bts">
-        <h2>Behind The Scenes</h2>
-        <div class="bts-wrapper">
-            <div class="bts-gallery">
-                <div class="bts-item">
-                    <img src="images/bts/shooting-setup.jpg" alt="Behind the scenes shooting setup">
-                    <p>Professional Shooting Setup</p>
-                </div>
-                <div class="bts-item">
-                    <img src="images/bts/lighting-rig.jpg" alt="Behind the scenes lighting equipment">
-                    <p>Lighting Equipment Configuration</p>
-                </div>
-                <div class="bts-item">
-                    <img src="images/bts/workshop.jpeg" alt="Behind the scenes team working">
-                    <p>Team in Action</p>
-                </div>
-                <div class="bts-item">
-                    <img src="images/bts/team-working.jpg" alt="Behind the scenes editing session">
-                    <p>Post-Processing Session</p>
-                </div>
-                <div class="bts-item">
-                    <img src="images/bts/pnQLd6EXBtFJgy2gDLaNQV.jpg" alt="Behind the scenes workshop">
-                    <p>Member Workshop</p>
-                </div>
-                <div class="bts-item">
-                    <img src="images/bts/wealthy-photographer.jpg" alt="Behind the scenes exhibition">
-                    <p>Exhibition Preparation</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- social -->
-    <section class="social" id="social">
-        <h2>Connect With Us</h2>
-        <div class="social-wrapper">
-            <div class="social-container">
-                <div class="social-card">
-                    <h3>Instagram</h3>
-                    <p>Follow our daily photography updates and member spotlights</p>
-                    <a href="" class="social-link" target="_blank">@kuetphotography</a>
-                </div>
-                <div class="social-card">
-                    <h3>Club Website</h3>
-                    <p>View our complete collections and member galleries</p>
-                    <a href="" class="social-link" target="_blank">kuetphotography.com</a>
-                </div>
-                <div class="social-card">
-                    <h3>Facebook Community</h3>
-                    <p>Join our community group for discussions and updates</p>
-                    <a href="" class="social-link" target="_blank">KUET Photography Club</a>
-                </div>
-            
-
-    <!-- contact -->
-    <section class="contact-section" id="contact">
-        <h2>Get In Touch</h2>
-        <div class="contact-wrapper">
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <div class="info-stack">
-                        <div class="contact-details">
-                            <p><strong>Email:</strong></p>
-                            <a href="">kuetphotosociety@gmail.com</a>
-                        </div>
-                        <div class="contact-details">
-                            <p><strong>Phone:</strong></p>
-                            <p>+880-1000000000</p>
-                        </div>
-                        <div class="contact-details">
-                            <p><strong>Location:</strong></p>
-                            <p>KUET Campus, Khulna, Bangladesh</p>
-                        </div>
+            </article>
+            <div class="feature-secondary-grid">
+                <article class="feature-card feature-secondary reveal-target featured-photo" data-title="Morning Photowalk - Teligati" data-by="Event Documentation" data-meta="Category: Event | Members explored early light">
+                    <img src="images/collections/event/photo_6192964703777568480_w.jpg" alt="Latest event">
+                    <div class="feature-card-content">
+                        <p class="feature-label">Latest Event</p>
+                        <h3>Morning Photowalk</h3>
+                        <p>Urban storytelling in early light</p>
                     </div>
-
-                    <div class="join-instructions">
-                        <h3>How to Join</h3>
-                        <ol class="steps-list">
-                            <li>Fill out the contact form with your details</li>
-                            <li>We'll contact you with information about membership</li>
-                            <li>Attend an orientation session</li>
-                            <li>Start your photography journey with us!</li>
-                        </ol>
+                </article>
+                <article class="feature-card feature-secondary reveal-target featured-photo" data-title="Creative Direction" data-by="Society Showcase" data-meta="Category: Creative | Member submissions">
+                    <img src="images/collections/creative/472785056_1010415087589936_793016476619826984_n.jpg" alt="Creative concept">
+                    <div class="feature-card-content">
+                        <p class="feature-label">Member Showcase</p>
+                        <h3>Creative Directions</h3>
+                        <p>Pushing visual boundaries</p>
                     </div>
-                </div>
+                </article>
+            </div>
+        </div>
+    </section>
 
-                <div class="contact-form-container">
-                    <h3>Membership Interest Form</h3>
-                    <form class="contact-form" id="membership-form" method="post" action="/api/v1/memberships/apply" novalidate>
-                        <input type="hidden" name="source" value="website">
-                        <input type="hidden" name="form_version" value="v1">
-                        <input type="hidden" name="csrf_token" value="">
-
-                        <div class="form-group">
-                            <label for="name">Full Name *</label>
-                            <input type="text" id="name" name="name" autocomplete="name" maxlength="120" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" autocomplete="email" maxlength="180" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="30">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="experience">Photography Experience</label>
-                            <select id="experience" name="experience">
-                                <option value="">Select your level...</option>
-                                <option value="beginner" >Beginner</option>
-                                <option value="intermediate">Intermediate</option>
-                                <option value="advanced">Advanced</option>
+    <section class="submission-hub">
+        <div class="section-heading">
+            <p class="eyebrow">Share Your Work</p>
+            <h2>Submit for the Weekly Feature</h2>
+        </div>
+        <div class="submission-container">
+            <div class="submission-form-wrapper">
+                <form class="upload-form" id="home-upload-form" novalidate>
+                    <div class="upload-grid">
+                        <label>
+                            <span>Photo Title</span>
+                            <input type="text" id="upload-title" placeholder="Golden Hour at KUET" maxlength="80" required>
+                        </label>
+                        <label>
+                            <span>Category</span>
+                            <select id="upload-category" required>
+                                <option value="">Select category</option>
+                                <option value="portrait">Portrait</option>
+                                <option value="street">Street</option>
+                                <option value="nature">Nature</option>
+                                <option value="event">Event</option>
+                                <option value="creative">Creative</option>
                             </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="interests">Areas of Interest (select all that apply)</label>
-                            <div class="checkbox-group">
-                                <label><input type="checkbox" name="interests[]" value="portrait"> Portrait Photography</label>
-                                <label><input type="checkbox" name="interests[]" value="landscape"> Landscape Photography</label>
-                                <label><input type="checkbox" name="interests[]" value="street"> Street Photography</label>
-                                <label><input type="checkbox" name="interests[]" value="events"> Event Coverage</label>
-                                <label><input type="checkbox" name="interests[]" value="editing"> Photo Editing</label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Message *</label>
-                            <textarea id="message" name="message" rows="5" maxlength="1200" placeholder="Tell us about yourself and why you want to join..." required></textarea>
-                        </div>
-
-                        <button type="submit" class="submit-button">Submit</button>
-                        <div id="form-response" class="form-status" aria-live="polite"></div>
-                    </form>
-                </div>
+                        </label>
+                    </div>
+                    <label>
+                        <span>Your Story</span>
+                        <textarea id="upload-description" rows="3" maxlength="180" placeholder="What inspired this frame?"></textarea>
+                    </label>
+                    <label class="upload-file">
+                        <span>Choose Image</span>
+                        <input type="file" id="upload-image" accept="image/*" required>
+                    </label>
+                    <button class="submit-button" type="submit">Preview Submission</button>
+                    <p class="form-status" id="home-upload-status" aria-live="polite"></p>
+                </form>
+                <figure class="upload-preview" id="upload-preview" hidden>
+                    <img id="upload-preview-image" alt="Upload preview">
+                    <figcaption>
+                        <strong id="upload-preview-title"></strong>
+                        <span id="upload-preview-meta"></span>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="submission-info">
+                <h3>Why Submit?</h3>
+                <ul class="info-list">
+                    <li>Be featured in our weekly showcase</li>
+                    <li>Get feedback from experienced photographers</li>
+                    <li>Build your portfolio with the community</li>
+                    <li>Exclusive access to member critiques</li>
+                </ul>
             </div>
         </div>
     </section>
 
-    <!-- footer -->
+    <section class="gallery-showcase">
+        <div class="section-heading">
+            <p class="eyebrow">Visual Gallery</p>
+            <h2>Explore our complete collection</h2>
+        </div>
+        <div class="showcase-grid">
+            <article class="showcase-item reveal-target featured-photo">
+                <img src="images/collections/portrait/photo_6129600900935826376_w.jpg" alt="Portrait collection" data-title="Portrait Series" data-by="Photographer: Shahriar Abdullah" data-meta="Genre: Portrait | Lighting: Natural">
+                <div class="showcase-overlay">
+                    <h3>Portrait Series</h3>
+                </div>
+            </article>
+            <article class="showcase-item reveal-target featured-photo">
+                <img src="images/collections/street/msg-880120795-8069.jpg" alt="Street photography" data-title="Urban Stories" data-by="Photographer: Ariful Islam" data-meta="Genre: Street | Time: Evening">
+                <div class="showcase-overlay">
+                    <h3>Urban Stories</h3>
+                </div>
+            </article>
+            <article class="showcase-item reveal-target featured-photo">
+                <img src="images/collections/event/photo_6229000166585776102_w.jpg" alt="Event coverage" data-title="Event Moments" data-by="Photographer: Muntaha Noor" data-meta="Genre: Event | Session: Exhibition">
+                <div class="showcase-overlay">
+                    <h3>Event Moments</h3>
+                </div>
+            </article>
+            <article class="showcase-item reveal-target featured-photo">
+                <img src="images/collections/creative/472785056_1010415087589936_793016476619826984_n.jpg" alt="Creative works" data-title="Creative Lab" data-by="Photographer: Ibrahim Raiyan" data-meta="Genre: Creative | Approach: Experimental">
+                <div class="showcase-overlay">
+                    <h3>Creative Lab</h3>
+                </div>
+            </article>
+            <article class="showcase-item reveal-target featured-photo">
+                <img src="images/collections/extra/473088010_1013273597304085_7422897251739750747_n.jpg" alt="Campus life" data-title="Campus Chronicles" data-by="Photographer: Farzana Mithila" data-meta="Category: Extra | Campus life">
+                <div class="showcase-overlay">
+                    <h3>Campus Chronicles</h3>
+                </div>
+            </article>
+            <article class="showcase-item reveal-target featured-photo">
+                <img src="images/collections/extra/556579849_1203912284906881_8471027009373828179_n.jpg" alt="Moments" data-title="Moments in Time" data-by="Photographer: Muntaha Noor" data-meta="Category: Extra | Campus life">
+                <div class="showcase-overlay">
+                    <h3>Moments in Time</h3>
+                </div>
+            </article>
+        </div>
+        <div class="section-cta-wrap">
+            <a class="cta-button page-link" href="gallery.html">View Complete Gallery</a>
+        </div>
+    </section>
+
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h4>About KUET Photography Club</h4>
-                <p>A vibrant community of photography enthusiasts at Khulna University of Engineering & Technology, dedicated to creative excellence and visual storytelling.</p>
+                <h4>About KUET Photography Society</h4>
+                <p>A vibrant community of photography enthusiasts at Khulna University of Engineering and Technology, dedicated to creative excellence and visual storytelling.</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>  KUET Photography Club.  | Design by Shahriar Abdullah [2207050] for Photography</p>
+            <p>KUET Photography Society | Creative student visual community</p>
         </div>
     </footer>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" type="button" aria-label="Close preview">×</button>
+        <figure class="lightbox-figure">
+            <img class="lightbox-image" alt="">
+            <figcaption class="lightbox-caption">
+                <h3 id="lightbox-title">Preview</h3>
+                <p id="lightbox-by"></p>
+                <p id="lightbox-meta"></p>
+            </figcaption>
+        </figure>
+    </div>
+
+
 </body>
 </html>

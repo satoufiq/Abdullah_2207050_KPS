@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse the KUET Photography Society gallery.">
+    <title>Gallery | KUET Photography Society</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="luxury-site">
+    <div class="site-loader" id="site-loader"><span></span></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="images/logo.png" alt="KUET Photography Club Logo" class="club-logo">
+                <span class="club-name">KUET Photography Society</span>
+            </div>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="nav-menu">
+                <li><a class="page-link" href="KPS.html">Home</a></li>
+                <li><a class="page-link" href="about.html">About</a></li>
+                <li><a class="page-link" href="gallery.html">Gallery</a></li>
+                <li><a class="page-link" href="events.html">Events</a></li>
+                <li><a class="page-link" href="team.html">Team</a></li>
+                <li><a class="page-link" href="contact.html">Contact</a></li>
+                <li><a class="page-link" href="register.html">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-hero gallery-hero reveal-target" style="background-image: linear-gradient(135deg, rgba(8,17,31,0.68), rgba(212,175,55,0.08)), url('images/collections/creative/474908052_1024641812833930_1691534703905046745_n.jpg'); background-size: cover; background-position: center;">
+        <div class="page-hero-content">
+            <p class="hero-badge">Curated Collection</p>
+            <h1>Our Visual Archive</h1>
+            <p class="hero-subtitle">Twenty photographs across six moods, all in full resolution.</p>
+        </div>
+    </header>
+
+    <section class="gallery-controls reveal-target">
+        <div class="controls-wrapper">
+            <div class="filter-tabs">
+                <button class="filter-tab is-active" data-filter="all" type="button">
+                    <span>All Works</span>
+                    <em>22</em>
+                </button>
+                <button class="filter-tab" data-filter="portrait" type="button">
+                    <span>Portraits</span>
+                    <em>5</em>
+                </button>
+                <button class="filter-tab" data-filter="street" type="button">
+                    <span>Street</span>
+                    <em>5</em>
+                </button>
+                <button class="filter-tab" data-filter="nature" type="button">
+                    <span>Nature</span>
+                    <em>5</em>
+                </button>
+                <button class="filter-tab" data-filter="events" type="button">
+                    <span>Events</span>
+                    <em>3</em>
+                </button>
+                <button class="filter-tab" data-filter="creative" type="button">
+                    <span>Creative</span>
+                    <em>2</em>
+                </button>
+                <button class="filter-tab" data-filter="urban" type="button">
+                    <span>Urban Moments</span>
+                    <em>10</em>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-main">
+        <div class="gallery-grid">
+            <article class="gallery-card filter-item reveal-target" data-category="portrait">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Calm Portrait in full view">
+                    <img src="images/collections/portrait/475299047_1023529802945131_2131160722920590617_n.jpg" alt="Portrait photo by society member" data-title="Calm Portrait" data-by="Photographer: Nibir Hasan (Team)" data-meta="Portrait | Batch 2K19 | EEE" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Portrait</span>
+                        <span class="gallery-index">01</span>
+                    </div>
+                    <h3>Calm Portrait</h3>
+                    <p>Soft light, a steady frame, and a composed expression from Nibir Hasan.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="portrait">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Close Focus in full view">
+                    <img src="images/collections/portrait/msg-880120795-8642.jpg" alt="Portrait close-up" data-title="Close Focus" data-by="Photographer: Farzana Mithila (Guest)" data-meta="Portrait | Outside Collaborator" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Portrait</span>
+                        <span class="gallery-index">02</span>
+                    </div>
+                    <h3>Close Focus</h3>
+                    <p>Intimate framing and a clean profile study from Farzana Mithila.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="street">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Corner Rush in full view">
+                    <img src="images/collections/street/msg-880120795-7949.jpg" alt="Street moment" data-title="Corner Rush" data-by="Photographer: Toufiq Hossain (Team)" data-meta="Street | Batch 2K21 | URP" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Street</span>
+                        <span class="gallery-index">03</span>
+                    </div>
+                    <h3>Corner Rush</h3>
+                    <p>Movement, rhythm, and a quick urban beat from Toufiq Hossain.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="street">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Sidewalk Story in full view">
+                    <img src="images/collections/street/msg-880120795-7954.jpg" alt="Street documentary frame" data-title="Sidewalk Story" data-by="Photographer: Aritra Sen (Guest)" data-meta="Street | Outside Collaborator" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Street</span>
+                        <span class="gallery-index">04</span>
+                    </div>
+                    <h3>Sidewalk Story</h3>
+                    <p>Documentary energy and quiet observation from Aritra Sen.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="nature">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Still Water Light in full view">
+                    <img src="images/collections/nature/472355752_1010415957589849_7730853507225014461_n.jpg" alt="Nature and wildlife photo" data-title="Still Water Light" data-by="Photographer: Ariful Islam (Team)" data-meta="Nature | Batch 2K20 | CE" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Nature</span>
+                        <span class="gallery-index">05</span>
+                    </div>
+                    <h3>Still Water Light</h3>
+                    <p>Reflective tones and a calm landscape study by Ariful Islam.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="nature">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Morning Leaf Study in full view">
+                    <img src="images/collections/nature/475124772_1024661486165296_1969224454520076581_n.jpg" alt="Nature composition" data-title="Morning Leaf Study" data-by="Photographer: Amdadul Haque (Team)" data-meta="Nature | Batch 2K20 | BME" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Nature</span>
+                        <span class="gallery-index">06</span>
+                    </div>
+                    <h3>Morning Leaf Study</h3>
+                    <p>Color, texture, and delicate detail from Amdadul Haque.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="events">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Workshop Focus in full view">
+                    <img src="images/collections/event/msg-880120795-7931.jpg" alt="Event frame" data-title="Workshop Focus" data-by="Photographer: Priom Sarker (Team)" data-meta="Event | Batch 2K19 | ME" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Events</span>
+                        <span class="gallery-index">07</span>
+                    </div>
+                    <h3>Event Focus</h3>
+                    <p>A classroom moment with sharp attention from Priom Sarker.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="events">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Mentor Briefing in full view">
+                    <img src="images/collections/event/photo_6208409659577056092_w.jpg" alt="Event documentary shot" data-title="Mentor Briefing" data-by="Photographer: Muntaha Noor (Team)" data-meta="Event | Batch 2K21 | LE" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Events</span>
+                        <span class="gallery-index">08</span>
+                    </div>
+                    <h3>Fields and Joys</h3>
+                    <p>Human detail and live documentation from Muntaha Noor.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="creative">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Color Drift in full view">
+                    <img src="images/collections/creative/470205099_994533485844763_4587247888146869329_n.jpg" alt="Creative photography frame" data-title="Color Drift" data-by="Photographer: Leon D Costa (Guest)" data-meta="Creative | Outside Collaborator" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Creative</span>
+                        <span class="gallery-index">09</span>
+                    </div>
+                    <h3>Color Drift</h3>
+                    <p>Chromatic tension and expressive experimentation by Leon D Costa.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="creative">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Refraction Lab in full view">
+                    <img src="images/collections/creative/474909006_1024398416191603_4667525587257047923_n.jpg" alt="Experimental composition" data-title="Refraction Lab" data-by="Photographer: Sheikh Arif (Team)" data-meta="Creative | Batch 2K21 | IEM" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Creative</span>
+                        <span class="gallery-index">10</span>
+                    </div>
+                    <h3>Refraction Dome</h3>
+                    <p>Sharp geometry and a bolder visual rhythm from Sheikh Arif.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="events">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Mentee Setup in full view">
+                    <img src="images/collections/event/photo_6192964703777568480_w.jpg" alt="Event and mentorship setup" data-title="Mentee Setup" data-by="Photographer: Shahriar Abdullah (Team)" data-meta="Event | Batch 2K21 | CSE" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Events</span>
+                        <span class="gallery-index">11</span>
+                    </div>
+                    <h3>Mentee Setup</h3>
+                    <p>Event coordination and mentorship moments captured by Shahriar Abdullah.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="portrait">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Profile Study in full view">
+                    <img src="images/collections/portrait/photo_6199518806691395404_w.jpg" alt="Portrait profile study" data-title="Profile Study" data-by="Photographer: Nusrat Bintey (Guest)" data-meta="Portrait | Outside Collaborator" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Portrait</span>
+                        <span class="gallery-index">12</span>
+                    </div>
+                    <h3>Profile Study</h3>
+                    <p>A composed portrait with studio-quality framing from Nusrat Bintey.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="urban">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Street Corner in full view">
+                    <img src="images/collections/extra/473088010_1013273597304085_7422897251739750747_n.jpg" alt="Urban street moment" data-title="Street Corner" data-by="Photographer: Shahriar Abdullah (Team)" data-meta="Urban | Outside Finds | Candid" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Urban</span>
+                        <span class="gallery-index">13</span>
+                    </div>
+                    <h3>River waters</h3>
+                    <p>A random moment from the bank of river by Shahriar Abdullah.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="urban">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Market Life in full view">
+                    <img src="images/collections/extra/475174370_1024660179498760_5520178449778551844_n.jpg" alt="Market scene" data-title="Market Life" data-by="Photographer: Nibir Hasan (Team)" data-meta="Urban | Outside Finds | Candid" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Urban</span>
+                        <span class="gallery-index">14</span>
+                    </div>
+                    <h3>Campus Life</h3>
+                    <p>Candid energy from a busy outdoor  by Nibir Hasan.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="urban">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Random Find in full view">
+                    <img src="images/collections/extra/476166310_1031456308819147_2939687961136825344_n.jpg" alt="Random urban moment" data-title="Random Find" data-by="Photographer: Ariful Islam (Team)" data-meta="Urban | Outside Finds | Candid" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Urban</span>
+                        <span class="gallery-index">15</span>
+                    </div>
+                    <h3>A cup in river</h3>
+                    <p>A chance encounter outside by Ariful Islam.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="urban">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Alley Light in full view">
+                    <img src="images/collections/extra/500741239_1104446001520177_9106379755048808884_n.jpg" alt="Alley scene" data-title="Alley Light" data-by="Photographer: Toufiq Hossain (Team)" data-meta="Urban | Outside Finds | Candid" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Urban</span>
+                        <span class="gallery-index">16</span>
+                    </div>
+                    <h3>Alley Light</h3>
+                    <p>Hidden moments in urban alleyways by Toufiq Hossain.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="urban">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Doorway in full view">
+                    <img src="images/collections/extra/556579849_1203912284906881_8471027009373828179_n.jpg" alt="Doorway moment" data-title="Doorway" data-by="Photographer: Muntaha Noor (Team)" data-meta="Urban | Outside Finds | Candid" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Urban</span>
+                        <span class="gallery-index">17</span>
+                    </div>
+                    <h3>Tea with Friends</h3>
+                    <p>A frame framed within frames by Muntaha Noor.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="urban">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Quiet Corner in full view">
+                    <img src="images/collections/extra/558880035_1213803410584435_6904532047438056852_n.jpg" alt="Quiet urban corner" data-title="Quiet Corner" data-by="Photographer: Amdadul Haque (Team)" data-meta="Urban | Outside Finds | Candid" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Urban</span>
+                        <span class="gallery-index">18</span>
+                    </div>
+                    <h3>Tulip and Lotus</h3>
+                    <p>Peace found in unexpected places by Amdadul Haque.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="urban">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Pathway in full view">
+                    <img src="images/collections/extra/560642219_1215681497063293_2118513156112656301_n.jpg" alt="Urban pathway" data-title="Pathway" data-by="Photographer: Sheikh Arif (Team)" data-meta="Urban | Outside Finds | Candid" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Urban</span>
+                        <span class="gallery-index">19</span>
+                    </div>
+                    <h3>Pathway</h3>
+                    <p>Direction and composition meet in this outside moment by Sheikh Arif.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="urban">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Outside Details in full view">
+                    <img src="images/collections/extra/607218673_1273431697954939_5872500282388720957_n.jpg" alt="Outside detail moment" data-title="Outside Details" data-by="Photographer: Farzana Mithila (Guest)" data-meta="Urban | Outside Finds | Guest collaborator" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Urban</span>
+                        <span class="gallery-index">20</span>
+                    </div>
+                    <h3>Outside Details</h3>
+                    <p>Close observation of everyday scenes by Farzana Mithila.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="urban">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open Street Pulse in full view">
+                    <img src="images/collections/extra/653069297_1333390121959096_3726308040785241609_n.jpg" alt="Street pulse moment" data-title="Street Pulse" data-by="Photographer: Leon D Costa (Guest)" data-meta="Urban | Outside Finds | Guest collaborator" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Urban</span>
+                        <span class="gallery-index">21</span>
+                    </div>
+                    <h3>Birds of the same feather</h3>
+                    <p>The energy of outside life captured by guest Leon D Costa.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+            <article class="gallery-card filter-item reveal-target" data-category="urban">
+                <button class="gallery-open-trigger" type="button" data-lightbox-trigger aria-label="Open City Breath in full view">
+                    <img src="images/collections/extra/668702170_1352013760096732_678666168896546150_n.jpg" alt="City life moment" data-title="City Breath" data-by="Photographer: Aritra Sen (Guest)" data-meta="Urban | Outside Finds | Guest collaborator" loading="lazy" decoding="async">
+                </button>
+                <div class="gallery-card-body">
+                    <div class="gallery-card-topline">
+                        <span class="gallery-category">Urban</span>
+                        <span class="gallery-index">22</span>
+                    </div>
+                    <h3>City Breath</h3>
+                    <p>A final perspective on the world beyond by guest Aritra Sen.</p>
+                    <button class="gallery-open-link" type="button" data-lightbox-trigger>Open full frame</button>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>KUET Photography Society</h4>
+                <p>Every frame in this archive reflects a student perspective on campus life and creativity.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>KUET Photography Society | Gallery page</p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" type="button" aria-label="Close preview">×</button>
+        <figure class="lightbox-figure">
+            <img class="lightbox-image" alt="">
+            <figcaption class="lightbox-caption">
+                <h3 id="lightbox-title">Preview</h3>
+                <p id="lightbox-by"></p>
+                <p id="lightbox-meta"></p>
+            </figcaption>
+        </figure>
+    </div>
+
+</body>
+</html>
