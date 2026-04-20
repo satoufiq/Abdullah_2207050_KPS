@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Register for upcoming KUET Photography Society events. Open to all photography enthusiasts.">
+    <title>Event Registration | KUET Photography Society</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="luxury-site">
+    <div class="site-loader" id="site-loader"><span></span></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="images/logo.png" alt="KUET Photography Club Logo" class="club-logo">
+                <span class="club-name">KUET Photography Society</span>
+            </div>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="nav-menu">
+                <li><a class="page-link" href="home.html">Home</a></li>
+                <li><a class="page-link" href="about.html">About</a></li>
+                <li><a class="page-link" href="gallery.html">Gallery</a></li>
+                <li><a class="page-link" href="events.html">Events</a></li>
+                <li><a class="page-link" href="team.html">Team</a></li>
+                <li><a class="page-link" href="contact.html">Contact</a></li>
+                <li><a class="page-link" href="register.html">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-hero reveal-target" style="background-image: linear-gradient(rgba(8,17,31,0.58), rgba(8,17,31,0.88)), url('images/collections/event/photo_6229000166585776102_w.jpg');">
+        <div class="page-hero-content">
+            <p class="hero-badge">Event Registration</p>
+            <h1>Join Our Community</h1>
+            <p>Register for workshops, photowalks, competitions, and exhibitions. Open to all photography enthusiasts.</p>
+        </div>
+    </header>
+
+    <section class="registration-section" id="register">
+        <div class="section-heading">
+            <p class="eyebrow">Registration</p>
+            <h2>Sign up for events</h2>
+        </div>
+
+        <div class="registration-info-grid reveal-target">
+            <div class="info-card">
+                <h3>Why Register?</h3>
+                <ul class="feature-list">
+                    <li>Get detailed event information and schedule</li>
+                    <li>Receive timely updates and reminders</li>
+                    <li>Connect with fellow photography enthusiasts</li>
+                    <li>Exclusive access to learning materials</li>
+                </ul>
+            </div>
+            <div class="info-card">
+                <h3>Event Types</h3>
+                <ul class="feature-list">
+                    <li><strong>Photowalks:</strong> Guided outdoor photography sessions</li>
+                    <li><strong>Workshops:</strong> Technical skill development sessions</li>
+                    <li><strong>Competitions:</strong> Showcase your best work</li>
+                    <li><strong>Exhibitions:</strong> View and celebrate member work</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="registration-wrapper reveal-target">
+            <div class="registration-form-container">
+                <h3>Event Registration Form</h3>
+                <p class="form-intro">All fields marked with * are required</p>
+                
+                <form class="registration-form" id="event-registration-form" method="post" action="/api/v1/events/register" novalidate>
+                    <input type="hidden" name="registration_type" value="public">
+                    <input type="hidden" name="form_version" value="v1">
+
+                    <!-- Personal Information Section -->
+                    <fieldset class="form-section">
+                        <legend>Personal Information</legend>
+                        
+                        <div class="form-group">
+                            <label for="reg-fullname">Full Name *</label>
+                            <input type="text" id="reg-fullname" name="fullname" autocomplete="name" maxlength="120" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="reg-email">Email Address *</label>
+                                <input type="email" id="reg-email" name="email" autocomplete="email" maxlength="180" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="reg-phone">Phone Number *</label>
+                                <input type="tel" id="reg-phone" name="phone" autocomplete="tel" maxlength="30" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg-affiliation">University / Organization</label>
+                            <input type="text" id="reg-affiliation" name="affiliation" maxlength="150" placeholder="Optional">
+                        </div>
+                    </fieldset>
+
+                    <!-- Event Selection Section -->
+                    <fieldset class="form-section">
+                        <legend>Event Selection</legend>
+                        
+                        <div class="form-group">
+                            <label for="reg-event">Select Event *</label>
+                            <select id="reg-event" name="event_id" required>
+                                <option value="">-- Choose an event --</option>
+                                <option value="event-001">Morning Photowalk - Teligati (April 20, 2026)</option>
+                                <option value="event-002">Lighting and Composition Workshop (April 28, 2026)</option>
+                                <option value="event-003">Street Storytelling Challenge (May 10, 2026)</option>
+                                <option value="event-004">Campus Exhibition - KUET Frames (May 28 - June 12, 2026)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg-attendees">Number of Attendees *</label>
+                            <input type="number" id="reg-attendees" name="attendee_count" min="1" max="5" value="1" required>
+                            <small>Maximum 5 per registration</small>
+                        </div>
+                    </fieldset>
+
+                    <!-- Experience & Interests Section -->
+                    <fieldset class="form-section">
+                        <legend>Photography Background</legend>
+                        
+                        <div class="form-group">
+                            <label for="reg-experience">Photography Experience Level *</label>
+                            <select id="reg-experience" name="experience_level" required>
+                                <option value="">-- Select your level --</option>
+                                <option value="beginner">Beginner (Just getting started)</option>
+                                <option value="intermediate">Intermediate (Some experience)</option>
+                                <option value="advanced">Advanced (Regular practitioner)</option>
+                                <option value="professional">Professional</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Areas of Interest (select all that apply)</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="interests" value="portrait"> Portrait Photography</label>
+                                <label><input type="checkbox" name="interests" value="landscape"> Landscape Photography</label>
+                                <label><input type="checkbox" name="interests" value="street"> Street Photography</label>
+                                <label><input type="checkbox" name="interests" value="events"> Event Coverage</label>
+                                <label><input type="checkbox" name="interests" value="macro"> Macro Photography</label>
+                                <label><input type="checkbox" name="interests" value="editing"> Photo Editing & Post-Processing</label>
+                                <label><input type="checkbox" name="interests" value="videography"> Videography</label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Equipment Section -->
+                    <fieldset class="form-section">
+                        <legend>Equipment (Optional)</legend>
+                        
+                        <div class="form-group">
+                            <label>What camera/equipment will you bring?</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="equipment" value="dslr"> DSLR Camera</label>
+                                <label><input type="checkbox" name="equipment" value="mirrorless"> Mirrorless Camera</label>
+                                <label><input type="checkbox" name="equipment" value="film"> Film Camera</label>
+                                <label><input type="checkbox" name="equipment" value="smartphone"> Smartphone</label>
+                                <label><input type="checkbox" name="equipment" value="none"> Just attending (no equipment)</label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Additional Information Section -->
+                    <fieldset class="form-section">
+                        <legend>Additional Information</legend>
+                        
+                        <div class="form-group">
+                            <label for="reg-message">Tell us about yourself or why you're interested in this event</label>
+                            <textarea id="reg-message" name="message" rows="4" maxlength="800" placeholder="Your message..."></textarea>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" name="subscribe" value="yes" checked>
+                                Send me updates about future events and photography tips
+                            </label>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" name="terms" required>
+                                I agree to the event terms and conditions *
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <button type="submit" class="submit-button">Complete Registration</button>
+                    <div id="registration-response" class="form-status" aria-live="polite"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="registration-faq">
+        <div class="section-heading">
+            <p class="eyebrow">Common Questions</p>
+            <h2>Registration FAQs</h2>
+        </div>
+
+        <div class="faq-grid reveal-target">
+            <div class="faq-item">
+                <h4>Do I need to be a member to register?</h4>
+                <p>No! Our events are open to everyone. You don't need to be a member to participate in workshops, photowalks, and exhibitions.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>What should I bring?</h4>
+                <p>It depends on the event. Most events welcome any camera (DSLR, mirrorless, film, or smartphone). Check the event description for specific requirements.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Is there a registration fee?</h4>
+                <p>Most of our events are free for everyone. Special workshops may have a nominal fee, which will be mentioned in the event details.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Can I bring a friend?</h4>
+                <p>Absolutely! Each registration allows up to 5 attendees. Just indicate the number when registering.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>What if I need to cancel?</h4>
+                <p>You can cancel your registration up to 24 hours before the event. Simply email us at kuetphotosociety@gmail.com.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>How will I receive event details?</h4>
+                <p>We'll send you confirmation and detailed instructions via email after you register.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-cta reveal-target">
+        <h2>Questions about an event?</h2>
+        <p>Reach out to us directly for more information</p>
+        <a href="contact.html" class="cta-button">Contact Us</a>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>KUET Photography Society</h4>
+                <p>Building a culture of visual storytelling and photographic excellence since 2018.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: <a href="mailto:kuetphotosociety@gmail.com">kuetphotosociety@gmail.com</a></p>
+                <p>Phone: +880-1000000000</p>
+                <p>Location: KUET Campus, Khulna, Bangladesh</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 KUET Photography Society | By 2207050</p>
+        </div>
+    </footer>
+
+</body>
+</html>
