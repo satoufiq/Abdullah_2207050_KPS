@@ -35,13 +35,16 @@ CREATE TABLE IF NOT EXISTS photos (
     views INT DEFAULT 0,
     likes INT DEFAULT 0,
     downloads INT DEFAULT 0,
+
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY(photographer_id) REFERENCES users(id),
     INDEX(category),
+
     INDEX(is_featured),
     INDEX(is_approved),
     INDEX(is_photo_of_week)
+
 );
 
 -- Events Table

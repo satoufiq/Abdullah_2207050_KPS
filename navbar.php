@@ -7,6 +7,7 @@ $current_page = basename($_SERVER['PHP_SELF'], '.php');
 <nav class="navbar">
     <div class="nav-container">
         <div class="logo-section">
+
             <a href="home.php" class="club-logo-link">
                 <img src="images/logo.png" alt="KUET Photography Club Logo" class="club-logo">
             </a>
@@ -25,6 +26,7 @@ $current_page = basename($_SERVER['PHP_SELF'], '.php');
             <li><a class="page-link <?php echo $current_page === 'team' ? 'active' : ''; ?>" href="team.php">Team</a></li>
             <li><a class="page-link <?php echo $current_page === 'contact' ? 'active' : ''; ?>" href="contact.php">Contact</a></li>
             <li><a class="page-link <?php echo $current_page === 'register' ? 'active' : ''; ?>" href="register.php">Register</a></li>
+
             
             <?php if (isset($_SESSION['user_id'])): ?>
                 <li class="nav-separator"></li>

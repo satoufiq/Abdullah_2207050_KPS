@@ -41,10 +41,12 @@ if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
+
 // Admin Credentials
 define('ADMIN_EMAIL', 'admin@kuetphoto.com');
 define('ADMIN_PASSWORD', 'admin123');
 define('CURRENT_YEAR', date('Y'));
+
 
 // Helper Functions
 function sanitize_input($data) {

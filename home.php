@@ -145,6 +145,7 @@ include 'navbar.php';
         </div>
     </section>
 
+
     <?php if (isset($_SESSION['user_id']) && $_SESSION['user_role'] === 'member'): ?>
     <section class="submit-photo reveal-target" id="submit-photo">
         <div class="section-heading">
@@ -268,6 +269,7 @@ include 'navbar.php';
         });
     </script>
     <?php else: ?>
+
     <section class="newsletter reveal-target">
         <div class="newsletter-content">
             <h2>Stay Updated</h2>
@@ -280,7 +282,9 @@ include 'navbar.php';
             <p id="newsletter-message"></p>
         </div>
     </section>
+
     <?php endif; ?>
+
 
 <?php
 include 'footer.php';

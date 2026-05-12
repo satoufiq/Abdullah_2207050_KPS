@@ -2,7 +2,10 @@
 /**
  * KUET Photography Society - Header Template
  */
+<<<<<<< HEAD
 $body_class = isset($body_class) ? trim($body_class) : 'luxury-site';
+=======
+>>>>>>> f6096e8eed8b684ac1f18c39c9e57669027d693b
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,4 +20,8 @@ $body_class = isset($body_class) ? trim($body_class) : 'luxury-site';
     <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
 </head>
+<<<<<<< HEAD
 <body class="<?php echo htmlspecialchars($body_class); ?>">
+=======
+<body class="luxury-site">
+>>>>>>> f6096e8eed8b684ac1f18c39c9e57669027d693b
