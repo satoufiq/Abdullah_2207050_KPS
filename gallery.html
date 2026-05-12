@@ -17,22 +17,28 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo-section">
-                <img src="images/logo.png" alt="KUET Photography Club Logo" class="club-logo">
-                <span class="club-name">KUET Photography Society</span>
+                <a href="home.html" class="club-logo">KUET Photography Society</a>
             </div>
             <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
             <ul class="nav-links" id="nav-menu">
                 <li><a class="page-link" href="home.html">Home</a></li>
                 <li><a class="page-link" href="about.html">About</a></li>
                 <li><a class="page-link" href="gallery.html">Gallery</a></li>
                 <li><a class="page-link" href="events.html">Events</a></li>
-                <li><a class="page-link" href="team.html">Team</a></li>
                 <li><a class="page-link" href="contact.html">Contact</a></li>
-                <li><a class="page-link" href="register.html">Register</a></li>
+                <li id="auth-links">
+                    <a class="page-link" href="login.html">Login</a> | 
+                    <a class="page-link" href="register.html">Register</a>
+                </li>
+                <li id="profile-menu" style="display: none;">
+                    <button class="profile-btn" id="profile-btn">👤 <span id="user-name">Profile</span> ▼</button>
+                    <div class="dropdown-menu" id="dropdown-menu" style="display: none;">
+                        <a href="profile.html">📋 My Profile</a>
+                        <a href="api/logout.php">🚪 Logout</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -393,18 +399,6 @@
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>KUET Photography Society</h4>
-                <p>Every frame in this archive reflects a student perspective on campus life and creativity.</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>KUET Photography Society | Gallery page</p>
-        </div>
-    </footer>
-
     <div class="lightbox" id="lightbox" aria-hidden="true">
         <button class="lightbox-close" type="button" aria-label="Close preview">×</button>
         <figure class="lightbox-figure">
@@ -413,9 +407,231 @@
                 <h3 id="lightbox-title">Preview</h3>
                 <p id="lightbox-by"></p>
                 <p id="lightbox-meta"></p>
+                <div id="lightbox-actions" style="margin-top: 15px;">
+                    <button id="lightbox-download" class="download-btn" style="display: none;">
+                        ⬇️ Download Photo
+                    </button>
+                    <p id="login-to-download" style="display: none; color: #d4af37; font-size: 14px;">
+                        📌 <a href="login.html" style="color: #d4af37;">Login to download</a> high-resolution versions
+                    </p>
+                </div>
             </figcaption>
         </figure>
     </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>KUET Photography Society</h4>
+                <p>Capturing moments, telling stories since 2018.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="#" target="_blank">Facebook</a></li>
+                    <li><a href="#" target="_blank">Instagram</a></li>
+                    <li><a href="#" target="_blank">Twitter</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: info@kuetphoto.com</p>
+                <p>Location: KUET, Khulna</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="year"></span> KUET Photography Society. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="navbar.js"></script>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Lightbox handling
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.querySelector('.lightbox-image');
+        const lightboxTitle = document.getElementById('lightbox-title');
+        const lightboxBy = document.getElementById('lightbox-by');
+        const lightboxMeta = document.getElementById('lightbox-meta');
+        const lightboxClose = document.querySelector('.lightbox-close');
+        const lightboxDownloadBtn = document.getElementById('lightbox-download');
+        const loginToDownload = document.getElementById('login-to-download');
+        let currentPhotoId = null;
+
+        // Open lightbox when clicking gallery images
+        document.querySelectorAll('[data-lightbox-trigger]').forEach(trigger => {
+            trigger.addEventListener('click', function(e) {
+                const img = this.querySelector('img');
+                if (img) {
+                    lightboxImage.src = img.src;
+                    lightboxImage.alt = img.alt;
+                    lightboxTitle.textContent = img.getAttribute('data-title') || 'Photo';
+                    lightboxBy.textContent = img.getAttribute('data-by') || '';
+                    lightboxMeta.textContent = img.getAttribute('data-meta') || '';
+                    
+                    // Store photo info from the gallery card
+                    const card = trigger.closest('.gallery-card');
+                    if (card) {
+                        currentPhotoId = card.getAttribute('data-photo-id');
+                    }
+                    
+                    // Check if user is logged in to show download button
+                    checkSessionForDownload();
+                    
+                    // Show lightbox
+                    lightbox.style.display = 'flex';
+                    lightbox.setAttribute('aria-hidden', 'false');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        
+        // Close on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+                closeLightbox();
+            }
+        });
+
+        // Close when clicking outside the figure
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Check session and show download button
+        async function checkSessionForDownload() {
+            try {
+                const response = await fetch('api/check_session.php');
+                const data = await response.json();
+                
+                if (data.is_member) {
+                    lightboxDownloadBtn.style.display = 'inline-block';
+                    loginToDownload.style.display = 'none';
+                } else {
+                    lightboxDownloadBtn.style.display = 'none';
+                    loginToDownload.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error checking session:', error);
+                lightboxDownloadBtn.style.display = 'none';
+                loginToDownload.style.display = 'block';
+            }
+        }
+
+        // Download button click handler
+        lightboxDownloadBtn.addEventListener('click', function() {
+            if (currentPhotoId) {
+                window.location.href = 'api/download_photo.php?photo_id=' + encodeURIComponent(currentPhotoId);
+            } else {
+                // Fallback for static gallery items without API photo ids
+                const imageSrc = lightboxImage.src;
+                const downloadLink = document.createElement('a');
+                downloadLink.href = imageSrc;
+                downloadLink.download = imageSrc.split('/').pop() || 'kuet-photo.jpg';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                downloadLink.remove();
+            }
+        });
+
+        // Gallery filter tabs
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                const items = document.querySelectorAll('.filter-item');
+                
+                document.querySelectorAll('.filter-tab').forEach(t => {
+                    t.classList.remove('is-active');
+                });
+                this.classList.add('is-active');
+                
+                items.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        // Session check for navbar
+        async function updateNavbar() {
+            try {
+                const response = await fetch('api/check_session.php');
+                const data = await response.json();
+                
+                const authLinks = document.getElementById('auth-links');
+                const profileMenu = document.getElementById('profile-menu');
+                const userName = document.getElementById('user-name');
+                
+                if (data.is_member) {
+                    authLinks.style.display = 'none';
+                    profileMenu.style.display = 'block';
+                    if (userName) userName.textContent = data.user_name || 'Profile';
+                } else {
+                    authLinks.style.display = 'block';
+                    profileMenu.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error checking session:', error);
+            }
+        }
+
+        // Setup profile dropdown toggle
+        const profileBtn = document.getElementById('profile-btn');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        if (profileBtn) {
+            profileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (dropdownMenu && !e.target.closest('.profile-btn') && !e.target.closest('.dropdown-menu')) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
+
+        // Mobile menu toggle
+        if (menuToggle) {
+            menuToggle.addEventListener('click', function() {
+                navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            });
+        }
+
+        // Check session on page load
+        updateNavbar();
+    </script>
 
 </body>
 </html>

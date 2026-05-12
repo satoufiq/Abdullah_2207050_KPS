@@ -17,22 +17,28 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo-section">
-                <img src="images/logo.png" alt="KUET Photography Club Logo" class="club-logo">
-                <span class="club-name">KUET Photography Society</span>
+                <a href="home.html" class="club-logo">KUET Photography Society</a>
             </div>
             <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
             <ul class="nav-links" id="nav-menu">
                 <li><a class="page-link" href="home.html">Home</a></li>
                 <li><a class="page-link" href="about.html">About</a></li>
                 <li><a class="page-link" href="gallery.html">Gallery</a></li>
                 <li><a class="page-link" href="events.html">Events</a></li>
-                <li><a class="page-link" href="team.html">Team</a></li>
                 <li><a class="page-link" href="contact.html">Contact</a></li>
-                <li><a class="page-link" href="register.html">Register</a></li>
+                <li id="auth-links">
+                    <a class="page-link" href="login.html">Login</a> | 
+                    <a class="page-link" href="register.html">Register</a>
+                </li>
+                <li id="profile-menu" style="display: none;">
+                    <button class="profile-btn" id="profile-btn">👤 <span id="user-name">Profile</span> ▼</button>
+                    <div class="dropdown-menu" id="dropdown-menu" style="display: none;">
+                        <a href="profile.html">📋 My Profile</a>
+                        <a href="api/logout.php">🚪 Logout</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -81,42 +87,6 @@
                     <span class="stat-value" data-count-to="8" data-duration="2000">0</span>
                     <span class="stat-name">Photography Genres</span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="featured-work" id="highlights">
-        <div class="section-heading">
-            <p class="eyebrow">This Week's Highlights</p>
-            <h2>Curated moments from our community</h2>
-        </div>
-        <div class="featured-work-grid">
-            <article class="feature-card feature-primary reveal-target featured-photo" data-title="Quiet Light, Strong Composition" data-by="Photographer: Abdullah Al Nafi" data-meta="Category: Nature | Lens: 50mm | Location: KUET Lake">
-                <img src="images/collections/extra/560642219_1215681497063293_2118513156112656301_n.jpg" alt="Photo of the week">
-                <div class="feature-card-content">
-                    <p class="feature-label">Photo of the Week</p>
-                    <h3>Quiet Light, Strong Composition</h3>
-                    <p>A nature frame balancing atmosphere with narrative depth.</p>
-                    <button class="learn-more" data-lightbox-trigger>View Details</button>
-                </div>
-            </article>
-            <div class="feature-secondary-grid">
-                <article class="feature-card feature-secondary reveal-target featured-photo" data-title="Morning Photowalk - Teligati" data-by="Event Documentation" data-meta="Category: Event | Members explored early light">
-                    <img src="images/collections/event/photo_6192964703777568480_w.jpg" alt="Latest event">
-                    <div class="feature-card-content">
-                        <p class="feature-label">Latest Event</p>
-                        <h3>Morning Photowalk</h3>
-                        <p>Urban storytelling in early light</p>
-                    </div>
-                </article>
-                <article class="feature-card feature-secondary reveal-target featured-photo" data-title="Creative Direction" data-by="Society Showcase" data-meta="Category: Creative | Member submissions">
-                    <img src="images/collections/creative/472785056_1010415087589936_793016476619826984_n.jpg" alt="Creative concept">
-                    <div class="feature-card-content">
-                        <p class="feature-label">Member Showcase</p>
-                        <h3>Creative Directions</h3>
-                        <p>Pushing visual boundaries</p>
-                    </div>
-                </article>
             </div>
         </div>
     </section>
@@ -237,6 +207,8 @@
         </div>
     </footer>
 
+    <script src="navbar.js"></script>
+
     <div class="lightbox" id="lightbox" aria-hidden="true">
         <button class="lightbox-close" type="button" aria-label="Close preview">×</button>
         <figure class="lightbox-figure">
@@ -249,6 +221,135 @@
         </figure>
     </div>
 
+    <script>
+        let homeCsrfToken = '';
+        
+        fetch('api/check_session.php')
+            .then(response => response.json())
+            .then(data => {
+                homeCsrfToken = data.csrf_token || '';
+            })
+            .catch(error => console.error('Error loading session token:', error));
+
+        // Handle photo submission
+        document.getElementById('home-upload-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('upload-title').value;
+            const category = document.getElementById('upload-category').value;
+            const description = document.getElementById('upload-description').value;
+            const fileInput = document.getElementById('upload-image');
+            const statusDiv = document.getElementById('home-upload-status');
+            
+            if (!fileInput.files[0]) {
+                statusDiv.innerHTML = '<p class="alert alert-error">Please select an image</p>';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('category', category);
+            formData.append('description', description);
+            formData.append('photo', fileInput.files[0]);
+            if (homeCsrfToken) {
+                formData.append('csrf_token', homeCsrfToken);
+            }
+
+            try {
+                statusDiv.innerHTML = '<p class="alert alert-info">Uploading...</p>';
+                
+                const response = await fetch('api/submit_photo.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    statusDiv.innerHTML = '<p class="alert alert-success">✓ Photo submitted successfully! Our team will review it shortly.</p>';
+                    document.getElementById('home-upload-form').reset();
+                    setTimeout(() => {
+                        statusDiv.innerHTML = '';
+                    }, 5000);
+                } else {
+                    statusDiv.innerHTML = `<p class="alert alert-error">✗ ${data.error || 'Upload failed'}</p>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                statusDiv.innerHTML = '<p class="alert alert-error">✗ An error occurred. Please try again.</p>';
+            }
+        });
+
+        // Preview image before upload
+        document.getElementById('upload-image').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('upload-preview-image').src = event.target.result;
+                    document.getElementById('upload-preview-title').textContent = document.getElementById('upload-title').value || 'Untitled';
+                    document.getElementById('upload-preview-meta').textContent = document.getElementById('upload-category').value;
+                    document.getElementById('upload-preview').removeAttribute('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+    <script>
+        // Session check for navbar
+        async function updateNavbar() {
+            try {
+                const response = await fetch('api/check_session.php');
+                const data = await response.json();
+                
+                const authLinks = document.getElementById('auth-links');
+                const profileMenu = document.getElementById('profile-menu');
+                const userName = document.getElementById('user-name');
+                
+                if (data.is_member) {
+                    authLinks.style.display = 'none';
+                    profileMenu.style.display = 'block';
+                    if (userName) userName.textContent = data.user_name || 'Profile';
+                } else {
+                    authLinks.style.display = 'block';
+                    profileMenu.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error checking session:', error);
+            }
+        }
+
+        // Setup profile dropdown toggle
+        const profileBtn = document.getElementById('profile-btn');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+
+        if (profileBtn) {
+            profileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (dropdownMenu && !e.target.closest('.profile-btn') && !e.target.closest('.dropdown-menu')) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
+
+        // Mobile menu toggle
+        if (menuToggle) {
+            menuToggle.addEventListener('click', function() {
+                navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            });
+        }
+
+        // Check session on page load
+        updateNavbar();
+    </script>
 
 </body>
 </html>

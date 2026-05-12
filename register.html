@@ -3,280 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Register for upcoming KUET Photography Society events. Open to all photography enthusiasts.">
-    <title>Event Registration | KUET Photography Society</title>
+    <meta name="description" content="Register as a member of KUET Photography Society.">
+    <title>Register | KUET Photography Society</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
 </head>
-<body class="luxury-site">
-    <div class="site-loader" id="site-loader"><span></span></div>
+<body class="luxury-site auth-page">
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo-section">
-                <img src="images/logo.png" alt="KUET Photography Club Logo" class="club-logo">
-                <span class="club-name">KUET Photography Society</span>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo-section">
+            <a href="home.html" class="club-logo">KUET Photography Society</a>
+        </div>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="nav-menu">
+            <li><a class="page-link" href="home.html">Home</a></li>
+            <li><a class="page-link" href="about.html">About</a></li>
+            <li><a class="page-link" href="gallery.html">Gallery</a></li>
+            <li><a class="page-link" href="events.html">Events</a></li>
+            <li><a class="page-link" href="contact.html">Contact</a></li>
+            <li id="auth-links">
+                <a class="page-link" href="login.html">Login</a> | 
+                <a class="page-link" href="register.html">Register</a>
+            </li>
+            <li id="profile-menu" style="display: none;">
+                <button class="profile-btn" id="profile-btn">👤 <span id="user-name">Profile</span> ▼</button>
+                <div class="dropdown-menu" id="dropdown-menu" style="display: none;">
+                    <a href="profile.html">📋 My Profile</a>
+                    <a href="api/logout.php">🚪 Logout</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main class="auth-shell">
+    <section class="auth-hero reveal-target">
+        <div>
+            <span class="auth-kicker">Welcome, photographer</span>
+            <h1>Join us today.</h1>
+            <p class="auth-hero-copy">Create a free account to start uploading photos, discovering member galleries, and connecting with other photographers at KUET.</p>
+
+            <div class="auth-stat-grid">
+                <div class="auth-stat">
+                    <span class="auth-stat-value">5K+</span>
+                    <span class="auth-stat-label">Total photos</span>
+                </div>
+                <div class="auth-stat">
+                    <span class="auth-stat-value">18</span>
+                    <span class="auth-stat-label">Collections</span>
+                </div>
+                <div class="auth-stat">
+                    <span class="auth-stat-value">100%</span>
+                    <span class="auth-stat-label">Community run</span>
+                </div>
+                <div class="auth-stat">
+                    <span class="auth-stat-value">0$</span>
+                    <span class="auth-stat-label">Fee to join</span>
+                </div>
             </div>
-            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-links" id="nav-menu">
-                <li><a class="page-link" href="home.html">Home</a></li>
-                <li><a class="page-link" href="about.html">About</a></li>
-                <li><a class="page-link" href="gallery.html">Gallery</a></li>
-                <li><a class="page-link" href="events.html">Events</a></li>
-                <li><a class="page-link" href="team.html">Team</a></li>
-                <li><a class="page-link" href="contact.html">Contact</a></li>
-                <li><a class="page-link" href="register.html">Register</a></li>
+        </div>
+
+        <div class="auth-note-panel">
+            <h2>Registration takes under 2 minutes</h2>
+            <ul class="auth-promo-list">
+                <li><strong>Email</strong> create your secure account</li>
+                <li><strong>Bio (Optional)</strong> tell us about your style</li>
+                <li><strong>Ready</strong> start sharing photos immediately</li>
             </ul>
         </div>
-    </nav>
+    </section>
 
-    <header class="page-hero reveal-target" style="background-image: linear-gradient(rgba(8,17,31,0.58), rgba(8,17,31,0.88)), url('images/collections/event/photo_6229000166585776102_w.jpg');">
-        <div class="page-hero-content">
-            <p class="hero-badge">Event Registration</p>
-            <h1>Join Our Community</h1>
-            <p>Register for workshops, photowalks, competitions, and exhibitions. Open to all photography enthusiasts.</p>
-        </div>
-    </header>
-
-    <section class="registration-section" id="register">
-        <div class="section-heading">
-            <p class="eyebrow">Registration</p>
-            <h2>Sign up for events</h2>
+    <section class="auth-card">
+        <div class="auth-card-header">
+            <h1>Create account</h1>
+            <p>All fields are optional except email and password. Complete your profile anytime.</p>
         </div>
 
-        <div class="registration-info-grid reveal-target">
-            <div class="info-card">
-                <h3>Why Register?</h3>
-                <ul class="feature-list">
-                    <li>Get detailed event information and schedule</li>
-                    <li>Receive timely updates and reminders</li>
-                    <li>Connect with fellow photography enthusiasts</li>
-                    <li>Exclusive access to learning materials</li>
-                </ul>
+        <div class="auth-alert-stack">
+            <div id="error-message"></div>
+            <div id="success-message"></div>
+        </div>
+
+        <form id="register-form" class="auth-form register-form">
+            <div class="auth-field-grid">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" placeholder="Your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                </div>
             </div>
-            <div class="info-card">
-                <h3>Event Types</h3>
-                <ul class="feature-list">
-                    <li><strong>Photowalks:</strong> Guided outdoor photography sessions</li>
-                    <li><strong>Workshops:</strong> Technical skill development sessions</li>
-                    <li><strong>Competitions:</strong> Showcase your best work</li>
-                    <li><strong>Exhibitions:</strong> View and celebrate member work</li>
-                </ul>
-            </div>
-        </div>
 
-        <div class="registration-wrapper reveal-target">
-            <div class="registration-form-container">
-                <h3>Event Registration Form</h3>
-                <p class="form-intro">All fields marked with * are required</p>
+            <div class="auth-field-grid">
+                <div class="form-group">
+                    <label for="phone">Phone (Optional)</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+880 1XX XXXXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password *</label>
+                    <input type="password" id="password" name="password" placeholder="Min 8 characters" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password_confirm">Confirm Password *</label>
+                <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirm password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="bio">About Your Photography</label>
+                <textarea id="bio" name="bio" placeholder="Your interests, style, or photography journey..." rows="3" maxlength="500"></textarea>
+                <small style="color: var(--text-muted);">Max 500 characters</small>
+            </div>
+
+            <label class="auth-check-row" for="agree">
+                <input type="checkbox" id="agree" required>
+                <span>I agree to Terms of Service and Privacy Policy</span>
+            </label>
+
+            <button type="submit" class="cta-button register-submit auth-submit">Create Account</button>
+        </form>
+
+        <div class="auth-footer-links">
+            <p>Already registered? <a href="login.html" class="inline-link">Login here</a></p>
+            <p><a href="home.html" class="inline-link">Back to gallery</a></p>
+        </div>
+    </section>
+</main>
+
+<script>
+    document.getElementById('register-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const alertStack = document.querySelector('.auth-alert-stack');
+        const errorDiv = document.getElementById('error-message');
+        const successDiv = document.getElementById('success-message');
+
+        // Reset messages
+        errorDiv.innerHTML = '';
+        successDiv.innerHTML = '';
+
+        try {
+            const response = await fetch('api/register.php', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                successDiv.innerHTML = `
+                    <div class="auth-alert auth-alert-success">
+                        <span class="auth-alert-icon">✓</span>
+                        <div>
+                            <strong>${data.message}</strong>
+                            <p>Redirecting to your profile...</p>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('register-form').style.display = 'none';
                 
-                <form class="registration-form" id="event-registration-form" method="post" action="/api/v1/events/register" novalidate>
-                    <input type="hidden" name="registration_type" value="public">
-                    <input type="hidden" name="form_version" value="v1">
+                setTimeout(() => {
+                    window.location.href = 'profile.html';
+                }, 3000);
+            } else {
+                errorDiv.innerHTML = `
+                    <div class="auth-alert auth-alert-error">
+                        <span class="auth-alert-icon">✕</span>
+                        <span>${data.error || 'Registration failed'}</span>
+                    </div>
+                `;
+                alertStack.scrollIntoView();
+            }
+        } catch (error) {
+            errorDiv.innerHTML = `
+                <div class="auth-alert auth-alert-error">
+                    <span class="auth-alert-icon">✕</span>
+                    <span>An error occurred. Please try again.</span>
+                </div>
+            `;
+        }
+    });
+</script>
 
-                    <!-- Personal Information Section -->
-                    <fieldset class="form-section">
-                        <legend>Personal Information</legend>
-                        
-                        <div class="form-group">
-                            <label for="reg-fullname">Full Name *</label>
-                            <input type="text" id="reg-fullname" name="fullname" autocomplete="name" maxlength="120" required>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="reg-email">Email Address *</label>
-                                <input type="email" id="reg-email" name="email" autocomplete="email" maxlength="180" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="reg-phone">Phone Number *</label>
-                                <input type="tel" id="reg-phone" name="phone" autocomplete="tel" maxlength="30" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="reg-affiliation">University / Organization</label>
-                            <input type="text" id="reg-affiliation" name="affiliation" maxlength="150" placeholder="Optional">
-                        </div>
-                    </fieldset>
-
-                    <!-- Event Selection Section -->
-                    <fieldset class="form-section">
-                        <legend>Event Selection</legend>
-                        
-                        <div class="form-group">
-                            <label for="reg-event">Select Event *</label>
-                            <select id="reg-event" name="event_id" required>
-                                <option value="">-- Choose an event --</option>
-                                <option value="event-001">Morning Photowalk - Teligati (April 20, 2026)</option>
-                                <option value="event-002">Lighting and Composition Workshop (April 28, 2026)</option>
-                                <option value="event-003">Street Storytelling Challenge (May 10, 2026)</option>
-                                <option value="event-004">Campus Exhibition - KUET Frames (May 28 - June 12, 2026)</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="reg-attendees">Number of Attendees *</label>
-                            <input type="number" id="reg-attendees" name="attendee_count" min="1" max="5" value="1" required>
-                            <small>Maximum 5 per registration</small>
-                        </div>
-                    </fieldset>
-
-                    <!-- Experience & Interests Section -->
-                    <fieldset class="form-section">
-                        <legend>Photography Background</legend>
-                        
-                        <div class="form-group">
-                            <label for="reg-experience">Photography Experience Level *</label>
-                            <select id="reg-experience" name="experience_level" required>
-                                <option value="">-- Select your level --</option>
-                                <option value="beginner">Beginner (Just getting started)</option>
-                                <option value="intermediate">Intermediate (Some experience)</option>
-                                <option value="advanced">Advanced (Regular practitioner)</option>
-                                <option value="professional">Professional</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Areas of Interest (select all that apply)</label>
-                            <div class="checkbox-group">
-                                <label><input type="checkbox" name="interests" value="portrait"> Portrait Photography</label>
-                                <label><input type="checkbox" name="interests" value="landscape"> Landscape Photography</label>
-                                <label><input type="checkbox" name="interests" value="street"> Street Photography</label>
-                                <label><input type="checkbox" name="interests" value="events"> Event Coverage</label>
-                                <label><input type="checkbox" name="interests" value="macro"> Macro Photography</label>
-                                <label><input type="checkbox" name="interests" value="editing"> Photo Editing & Post-Processing</label>
-                                <label><input type="checkbox" name="interests" value="videography"> Videography</label>
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <!-- Equipment Section -->
-                    <fieldset class="form-section">
-                        <legend>Equipment (Optional)</legend>
-                        
-                        <div class="form-group">
-                            <label>What camera/equipment will you bring?</label>
-                            <div class="checkbox-group">
-                                <label><input type="checkbox" name="equipment" value="dslr"> DSLR Camera</label>
-                                <label><input type="checkbox" name="equipment" value="mirrorless"> Mirrorless Camera</label>
-                                <label><input type="checkbox" name="equipment" value="film"> Film Camera</label>
-                                <label><input type="checkbox" name="equipment" value="smartphone"> Smartphone</label>
-                                <label><input type="checkbox" name="equipment" value="none"> Just attending (no equipment)</label>
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <!-- Additional Information Section -->
-                    <fieldset class="form-section">
-                        <legend>Additional Information</legend>
-                        
-                        <div class="form-group">
-                            <label for="reg-message">Tell us about yourself or why you're interested in this event</label>
-                            <textarea id="reg-message" name="message" rows="4" maxlength="800" placeholder="Your message..."></textarea>
-                        </div>
-
-                        <div class="form-group checkbox-group">
-                            <label>
-                                <input type="checkbox" name="subscribe" value="yes" checked>
-                                Send me updates about future events and photography tips
-                            </label>
-                        </div>
-
-                        <div class="form-group checkbox-group">
-                            <label>
-                                <input type="checkbox" name="terms" required>
-                                I agree to the event terms and conditions *
-                            </label>
-                        </div>
-                    </fieldset>
-
-                    <button type="submit" class="submit-button">Complete Registration</button>
-                    <div id="registration-response" class="form-status" aria-live="polite"></div>
-                </form>
-            </div>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>KUET Photography Society</h4>
+            <p>Capturing moments, telling stories since 2018.</p>
         </div>
-    </section>
-
-    <section class="registration-faq">
-        <div class="section-heading">
-            <p class="eyebrow">Common Questions</p>
-            <h2>Registration FAQs</h2>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
         </div>
-
-        <div class="faq-grid reveal-target">
-            <div class="faq-item">
-                <h4>Do I need to be a member to register?</h4>
-                <p>No! Our events are open to everyone. You don't need to be a member to participate in workshops, photowalks, and exhibitions.</p>
-            </div>
-
-            <div class="faq-item">
-                <h4>What should I bring?</h4>
-                <p>It depends on the event. Most events welcome any camera (DSLR, mirrorless, film, or smartphone). Check the event description for specific requirements.</p>
-            </div>
-
-            <div class="faq-item">
-                <h4>Is there a registration fee?</h4>
-                <p>Most of our events are free for everyone. Special workshops may have a nominal fee, which will be mentioned in the event details.</p>
-            </div>
-
-            <div class="faq-item">
-                <h4>Can I bring a friend?</h4>
-                <p>Absolutely! Each registration allows up to 5 attendees. Just indicate the number when registering.</p>
-            </div>
-
-            <div class="faq-item">
-                <h4>What if I need to cancel?</h4>
-                <p>You can cancel your registration up to 24 hours before the event. Simply email us at kuetphotosociety@gmail.com.</p>
-            </div>
-
-            <div class="faq-item">
-                <h4>How will I receive event details?</h4>
-                <p>We'll send you confirmation and detailed instructions via email after you register.</p>
-            </div>
+        <div class="footer-section">
+            <h4>Follow Us</h4>
+            <ul>
+                <li><a href="#" target="_blank">Facebook</a></li>
+                <li><a href="#" target="_blank">Instagram</a></li>
+                <li><a href="#" target="_blank">Twitter</a></li>
+            </ul>
         </div>
-    </section>
-
-    <section class="contact-cta reveal-target">
-        <h2>Questions about an event?</h2>
-        <p>Reach out to us directly for more information</p>
-        <a href="contact.html" class="cta-button">Contact Us</a>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>KUET Photography Society</h4>
-                <p>Building a culture of visual storytelling and photographic excellence since 2018.</p>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="register.html">Register</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p>Email: <a href="mailto:kuetphotosociety@gmail.com">kuetphotosociety@gmail.com</a></p>
-                <p>Phone: +880-1000000000</p>
-                <p>Location: KUET Campus, Khulna, Bangladesh</p>
-            </div>
+        <div class="footer-section">
+            <h4>Contact</h4>
+            <p>Email: info@kuetphoto.com</p>
+            <p>Location: KUET, Khulna</p>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 KUET Photography Society | By 2207050</p>
-        </div>
-    </footer>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> KUET Photography Society. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="navbar.js"></script>
+
+<script src="navbar.js"></script>
+
+<script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Session check for navbar
+    async function updateNavbar() {
+        try {
+            const response = await fetch('api/check_session.php');
+            const data = await response.json();
+            
+            const authLinks = document.getElementById('auth-links');
+            const profileMenu = document.getElementById('profile-menu');
+            const userName = document.getElementById('user-name');
+            
+            if (data.is_member) {
+                authLinks.style.display = 'none';
+                profileMenu.style.display = 'block';
+                if (userName) userName.textContent = data.user_name || 'Profile';
+            } else {
+                authLinks.style.display = 'block';
+                profileMenu.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('Error checking session:', error);
+        }
+    }
+
+    // Setup profile dropdown toggle
+    const profileBtn = document.getElementById('profile-btn');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (profileBtn) {
+        profileBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (dropdownMenu && !e.target.closest('.profile-btn') && !e.target.closest('.dropdown-menu')) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+
+    // Mobile menu toggle
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+    }
+
+    // Check session on page load
+    updateNavbar();
+</script>
 
 </body>
 </html>
