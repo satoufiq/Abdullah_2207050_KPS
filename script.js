@@ -30,14 +30,14 @@ function initializeNavigation() {
 
     // Toggle menu on hamburger click
     menuToggle.addEventListener('click', function () {
-        navMenu.classList.toggle('is-open');
+        navMenu.classList.toggle('active');
         menuToggle.classList.toggle('is-active');
     });
 
     // Close menu when a link is clicked
     navLinks.forEach(link => {
         link.addEventListener('click', function () {
-            navMenu.classList.remove('is-open');
+            navMenu.classList.remove('active');
             menuToggle.classList.remove('is-active');
         });
     });
@@ -45,7 +45,7 @@ function initializeNavigation() {
     // Close menu when clicking outside
     document.addEventListener('click', function (event) {
         if (!event.target.closest('.navbar')) {
-            navMenu.classList.remove('is-open');
+            navMenu.classList.remove('active');
             menuToggle.classList.remove('is-active');
         }
     });
