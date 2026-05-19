@@ -341,54 +341,109 @@ function closeLightbox(lightbox) {
 // ============================================================================
 
 function initializeUploadPreview() {
-    const uploadForm = document.getElementById('home-upload-form');
-    const uploadImage = document.getElementById('upload-image');
-    const uploadPreview = document.getElementById('upload-preview');
-    const previewImage = document.getElementById('upload-preview-image');
-    const previewTitle = document.getElementById('upload-preview-title');
-    const previewMeta = document.getElementById('upload-preview-meta');
+    const uploadForm = document.getElementById('photo-submission-form');
+    const fileInput = document.getElementById('photo-file');
+    const fileUploadDiv = document.querySelector('.file-upload');
 
-    if (!uploadImage || !uploadPreview) return;
+    if (!fileInput || !fileUploadDiv) return;
 
-    uploadImage.addEventListener('change', function (e) {
-        const file = e.target.files[0];
-        if (!file) return;
+    // Handle file selection via input
+    fileInput.addEventListener('change', handleFileSelect);
 
-        if (!file.type.match('image.*')) {
-            alert('Please select an image file');
-            return;
-        }
+    // Handle drag and drop
+    fileUploadDiv.addEventListener('dragover', handleDragOver, false);
+    fileUploadDiv.addEventListener('dragleave', handleDragLeave, false);
+    fileUploadDiv.addEventListener('drop', handleDrop, false);
 
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            previewImage.src = event.target.result;
-            
-            const title = document.getElementById('upload-title').value || 'Untitled';
-            const category = document.getElementById('upload-category').value || 'Uncategorized';
-            
-            previewTitle.textContent = title;
-            previewMeta.textContent = `Category: ${category}`;
-            
-            uploadPreview.hidden = false;
-            uploadPreview.style.animation = 'fadeIn 0.5s ease-in-out';
-        };
+    // Click to browse files
+    fileUploadDiv.addEventListener('click', () => fileInput.click());
 
-        reader.readAsDataURL(file);
-    });
-
+    // Form submission
     if (uploadForm) {
         uploadForm.addEventListener('submit', function (e) {
             e.preventDefault();
-            if (uploadImage.files.length === 0) {
-                alert('Please select an image');
+            
+            if (fileInput.files.length === 0) {
+                showFormMessage(uploadForm, 'Please select a photo to upload', 'error');
                 return;
             }
-            showFormMessage(uploadForm, 'Image submitted successfully! ✓', 'success');
-            setTimeout(() => {
-                uploadForm.reset();
-                uploadPreview.hidden = true;
-            }, 1500);
+
+            const formData = new FormData(uploadForm);
+            
+            fetch('api/submit_photo.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showFormMessage(uploadForm, 'Photo submitted successfully! ✓', 'success');
+                    uploadForm.reset();
+                    fileUploadDiv.classList.remove('dragover');
+                    setTimeout(() => {
+                        uploadForm.reset();
+                    }, 2000);
+                } else {
+                    showFormMessage(uploadForm, data.error || 'Error uploading photo', 'error');
+                }
+            })
+            .catch(error => {
+                showFormMessage(uploadForm, 'Error: ' + error.message, 'error');
+            });
         });
+    }
+
+    function handleFileSelect(e) {
+        const files = e.target.files;
+        validateAndHandleFiles(files);
+    }
+
+    function handleDragOver(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        fileUploadDiv.classList.add('dragover');
+    }
+
+    function handleDragLeave(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        fileUploadDiv.classList.remove('dragover');
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        fileUploadDiv.classList.remove('dragover');
+        
+        const files = e.dataTransfer.files;
+        validateAndHandleFiles(files);
+    }
+
+    function validateAndHandleFiles(files) {
+        if (files.length === 0) return;
+
+        const file = files[0];
+
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+            showFormMessage(uploadForm, 'Please select a valid image file', 'error');
+            return;
+        }
+
+        // Validate file size (max 10MB)
+        const maxSize = 10 * 1024 * 1024;
+        if (file.size > maxSize) {
+            showFormMessage(uploadForm, 'File size must be less than 10MB', 'error');
+            return;
+        }
+
+        fileInput.files = files;
+        
+        // Show file name in label
+        const fileLabel = document.querySelector('.file-label');
+        if (fileLabel) {
+            fileLabel.textContent = `Selected: ${file.name}`;
+        }
     }
 }
 
