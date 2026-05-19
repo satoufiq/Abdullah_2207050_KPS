@@ -104,3 +104,21 @@ CREATE TABLE IF NOT EXISTS team_members (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(user_id) REFERENCES users(id)
 );
+
+-- Membership Applications Table
+CREATE TABLE IF NOT EXISTS membership_applications (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(20),
+    experience ENUM('beginner', 'intermediate', 'advanced') DEFAULT 'beginner',
+    interests JSON,
+    message TEXT,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    approved_by INT,
+    applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    reviewed_at TIMESTAMP NULL,
+    INDEX(status),
+    INDEX(email),
+    FOREIGN KEY(approved_by) REFERENCES users(id)
+);

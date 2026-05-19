@@ -7,15 +7,20 @@ require_once 'config.php';
 $page_title = 'Events';
 $current_page = 'events';
 
-// Fetch all upcoming events
+// Fetch all events (upcoming and past)
 $events = [];
 if (isset($conn)) {
-    $query = "SELECT id, title, date, location, description, capacity, registered_count FROM events WHERE date >= NOW() ORDER BY date ASC";
+    $query = "SELECT id, title, date, location, description, capacity, registered_count FROM events ORDER BY date DESC";
     $result = $conn->query($query);
     if ($result) {
         $events = $result->fetch_all(MYSQLI_ASSOC);
+    } else {
+        error_log("Events query error: " . $conn->error);
     }
 }
+
+// DEBUG: Log number of events found
+error_log("Events found: " . count($events));
 
 // Check if user is registered for events
 $user_registrations = [];
@@ -39,17 +44,30 @@ include 'navbar.php';
 
 <div class="site-loader" id="site-loader"><span></span></div>
 
-<section class="events-hero">
+<section class="events-hero" style="background-image: linear-gradient(135deg, rgba(8,17,31,0.68), rgba(212,175,55,0.08)), url('images/bts/shooting-setup.jpg'); background-size: cover; background-position: center;">
     <div class="hero-content">
+        <p class="hero-badge">Join Our Community</p>
         <h1>Photography Events</h1>
-        <p class="hero-subtitle">Join us for exclusive workshops, photo walks, and community gatherings</p>
+        <p class="hero-subtitle">Exclusive workshops, photo walks, and community gatherings</p>
     </div>
 </section>
 
 <section class="events-container reveal-target">
     <div class="section-heading">
         <p class="eyebrow">What's Happening</p>
-        <h2>Upcoming Events</h2>
+        <h2>Photography Events <?php echo count($events) > 0 ? '(' . count($events) . ')' : ''; ?></h2>
+    </div>
+
+    <!-- DEBUG: Show event count -->
+    <div style="background: rgba(212, 175, 55, 0.1); padding: 1rem; margin-bottom: 2rem; border-radius: 4px; display: block !important; visibility: visible !important;">
+        <p style="color: #d4af37; margin: 0; display: block !important;">DEBUG: Found <?php echo count($events); ?> events</p>
+        <?php if (!empty($events)): ?>
+            <p style="color: #bbb; margin: 0.5rem 0 0 0; font-size: 0.9rem; display: block !important;">
+                <?php foreach ($events as $e): ?>
+                    Event: <?php echo htmlspecialchars($e['title']); ?> (<?php echo $e['date']; ?>)<br>
+                <?php endforeach; ?>
+            </p>
+        <?php endif; ?>
     </div>
 
     <?php if (empty($events)): ?>
@@ -58,12 +76,12 @@ include 'navbar.php';
             <p class="empty-subtitle">Check back soon for exciting photography workshops and photo walks!</p>
         </div>
     <?php else: ?>
-        <div class="events-list">
+        <div class="events-list" style="display: flex !important; flex-direction: column; gap: 2rem; visibility: visible !important; opacity: 1 !important;">
             <?php foreach ($events as $event): 
                 $is_registered = in_array($event['id'], $user_registrations);
                 $is_full = $event['capacity'] && $event['registered_count'] >= $event['capacity'];
             ?>
-                <div class="event-card <?php echo $is_full ? 'is-full' : ''; ?>">
+                <div class="event-card <?php echo $is_full ? 'is-full' : ''; ?>" style="display: grid !important; visibility: visible !important; opacity: 1 !important; grid-template-columns: 100px 1fr; gap: 2rem; padding: 2rem; border: 2px solid #d4af37; border-radius: 12px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);">
                     <div class="event-date-badge">
                         <span class="date-month"><?php echo date('M', strtotime($event['date'])); ?></span>
                         <span class="date-day"><?php echo date('d', strtotime($event['date'])); ?></span>
