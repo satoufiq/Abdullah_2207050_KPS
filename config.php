@@ -60,4 +60,21 @@ function get_csrf_token() {
 function verify_csrf_token($token) {
     return hash_equals($_SESSION['csrf_token'] ?? '', $token ?? '');
 }
+
+function ensure_table_column(mysqli $conn, string $table, string $column, string $definition): bool {
+    $result = @$conn->query("SHOW COLUMNS FROM `$table` LIKE '$column'");
+    if ($result && $result->num_rows > 0) {
+        return true;
+    }
+    return @$conn->query("ALTER TABLE `$table` ADD COLUMN `$column` $definition") === true;
+}
+
+function ensure_membership_schema(mysqli $conn): void {
+    ensure_table_column($conn, 'membership_applications', 'batch', "VARCHAR(40) DEFAULT NULL AFTER phone");
+    ensure_table_column($conn, 'team_members', 'batch', "VARCHAR(40) DEFAULT NULL AFTER position");
+}
+
+if (isset($conn) && $conn instanceof mysqli) {
+    ensure_membership_schema($conn);
+}
 ?>

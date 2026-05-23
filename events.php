@@ -58,91 +58,100 @@ include 'navbar.php';
         <h2>Photography Events <?php echo count($events) > 0 ? '(' . count($events) . ')' : ''; ?></h2>
     </div>
 
-    <!-- DEBUG: Show event count -->
-    <div style="background: rgba(212, 175, 55, 0.1); padding: 1rem; margin-bottom: 2rem; border-radius: 4px; display: block !important; visibility: visible !important;">
-        <p style="color: #d4af37; margin: 0; display: block !important;">DEBUG: Found <?php echo count($events); ?> events</p>
-        <?php if (!empty($events)): ?>
-            <p style="color: #bbb; margin: 0.5rem 0 0 0; font-size: 0.9rem; display: block !important;">
-                <?php foreach ($events as $e): ?>
-                    Event: <?php echo htmlspecialchars($e['title']); ?> (<?php echo $e['date']; ?>)<br>
-                <?php endforeach; ?>
-            </p>
-        <?php endif; ?>
-    </div>
-
     <?php if (empty($events)): ?>
         <div class="events-empty">
             <p class="empty-message">No events scheduled at the moment.</p>
             <p class="empty-subtitle">Check back soon for exciting photography workshops and photo walks!</p>
         </div>
     <?php else: ?>
-        <div class="events-list" style="display: flex !important; flex-direction: column; gap: 2rem; visibility: visible !important; opacity: 1 !important;">
-            <?php foreach ($events as $event): 
-                $is_registered = in_array($event['id'], $user_registrations);
-                $is_full = $event['capacity'] && $event['registered_count'] >= $event['capacity'];
-            ?>
-                <div class="event-card <?php echo $is_full ? 'is-full' : ''; ?>" style="display: grid !important; visibility: visible !important; opacity: 1 !important; grid-template-columns: 100px 1fr; gap: 2rem; padding: 2rem; border: 2px solid #d4af37; border-radius: 12px; background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);">
-                    <div class="event-date-badge">
-                        <span class="date-month"><?php echo date('M', strtotime($event['date'])); ?></span>
-                        <span class="date-day"><?php echo date('d', strtotime($event['date'])); ?></span>
-                    </div>
+        <div class="events-table-wrapper">
+            <table class="events-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Event</th>
+                        <th>Details</th>
+                        <th>Capacity</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $event_index = 1; ?>
+                    <?php foreach ($events as $event): 
+                        $is_registered = in_array($event['id'], $user_registrations);
+                        $is_full = $event['capacity'] && $event['registered_count'] >= $event['capacity'];
+                        $event_status = $is_registered ? 'Registered' : ($is_full ? 'Full' : 'Open');
+                    ?>
+                        <tr class="event-row <?php echo $is_full ? 'is-full' : ''; ?> <?php echo $is_registered ? 'is-registered' : ''; ?>">
+                            <td class="event-date-cell">
+                                <span class="event-date-month"><?php echo date('M', strtotime($event['date'])); ?></span>
+                                <span class="event-date-day"><?php echo date('d', strtotime($event['date'])); ?></span>
+                                <span class="event-date-year"><?php echo date('Y', strtotime($event['date'])); ?></span>
+                            </td>
 
-                    <div class="event-content">
-                        <div class="event-header">
-                            <div>
-                                <h3><?php echo htmlspecialchars($event['title']); ?></h3>
-                                <p class="event-datetime">
-                                    <span class="time-icon">🕐</span>
-                                    <?php echo date('g:i A', strtotime($event['date'])); ?>
-                                </p>
-                                <p class="event-location">
-                                    <span class="location-icon">📍</span>
-                                    <?php echo htmlspecialchars($event['location']); ?>
-                                </p>
-                            </div>
-                            <?php if ($is_registered): ?>
-                                <div class="registered-badge">✓ Registered</div>
-                            <?php endif; ?>
-                        </div>
+                            <td class="event-title-cell">
+                                <div class="event-title-wrap">
+                                    <h3><?php echo htmlspecialchars($event['title']); ?></h3>
+                                    <span class="event-order">#<?php echo str_pad($event_index, 2, '0', STR_PAD_LEFT); ?></span>
+                                </div>
+                                <p class="event-description"><?php echo htmlspecialchars($event['description']); ?></p>
+                            </td>
 
-                        <p class="event-description"><?php echo htmlspecialchars($event['description']); ?></p>
+                            <td class="event-details-cell">
+                                <span class="event-detail-item"><span class="detail-icon">🕐</span><?php echo date('g:i A', strtotime($event['date'])); ?></span>
+                                <span class="event-detail-item"><span class="detail-icon">📍</span><?php echo htmlspecialchars($event['location']); ?></span>
+                            </td>
 
-                        <div class="event-footer">
-                            <div class="event-capacity">
-                                <span class="capacity-icon">👥</span>
-                                <?php 
-                                if ($event['capacity']) {
-                                    echo $event['registered_count'] . ' / ' . $event['capacity'] . ' Registered';
-                                } else {
-                                    echo $event['registered_count'] . ' Registered';
-                                }
-                                ?>
-                            </div>
+                            <td class="event-capacity-cell">
+                                <span class="capacity-count">
+                                    <?php 
+                                    if ($event['capacity']) {
+                                        echo (int) $event['registered_count'] . ' / ' . (int) $event['capacity'];
+                                    } else {
+                                        echo (int) $event['registered_count'];
+                                    }
+                                    ?>
+                                </span>
+                                <span class="capacity-label">Registered</span>
+                            </td>
 
-                            <?php if (isset($_SESSION['user_id'])): ?>
-                                <form class="event-form" method="POST">
-                                    <input type="hidden" name="csrf_token" value="<?php echo get_csrf_token(); ?>">
-                                    <input type="hidden" class="event_id" value="<?php echo $event['id']; ?>">
-                                    
-                                    <?php if ($is_registered): ?>
-                                        <button type="button" class="event-btn unregister-btn" onclick="handleEventAction(this, 'unregister')">
-                                            Cancel Registration
-                                        </button>
-                                    <?php elseif ($is_full): ?>
-                                        <button type="button" class="event-btn full-btn" disabled>Event Full</button>
-                                    <?php else: ?>
-                                        <button type="button" class="event-btn register-btn" onclick="handleEventAction(this, 'register')">
-                                            Register Now
-                                        </button>
-                                    <?php endif; ?>
-                                </form>
-                            <?php else: ?>
-                                <a href="login.php" class="event-btn login-btn">Login to Register</a>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+                            <td class="event-status-cell">
+                                <?php if ($is_registered): ?>
+                                    <span class="event-status registered">Registered</span>
+                                <?php elseif ($is_full): ?>
+                                    <span class="event-status full">Full</span>
+                                <?php else: ?>
+                                    <span class="event-status open">Open</span>
+                                <?php endif; ?>
+                            </td>
+
+                            <td class="event-action-cell">
+                                <?php if (isset($_SESSION['user_id'])): ?>
+                                    <form class="event-form" method="POST">
+                                        <input type="hidden" name="csrf_token" value="<?php echo get_csrf_token(); ?>">
+                                        <input type="hidden" class="event_id" value="<?php echo $event['id']; ?>">
+
+                                        <?php if ($is_registered): ?>
+                                            <button type="button" class="event-btn unregister-btn" onclick="handleEventAction(this, 'unregister')">
+                                                Cancel
+                                            </button>
+                                        <?php elseif ($is_full): ?>
+                                            <button type="button" class="event-btn full-btn" disabled>Full</button>
+                                        <?php else: ?>
+                                            <button type="button" class="event-btn register-btn" onclick="handleEventAction(this, 'register')">
+                                                Register
+                                            </button>
+                                        <?php endif; ?>
+                                    </form>
+                                <?php else: ?>
+                                    <a href="login.php" class="event-btn login-btn">Login</a>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php $event_index++; endforeach; ?>
+                </tbody>
+            </table>
         </div>
     <?php endif; ?>
 </section>

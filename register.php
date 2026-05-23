@@ -79,21 +79,30 @@ include 'navbar.php';
             <h1>Join us today.</h1>
             <p class="auth-hero-copy">Create a free account to start uploading photos, discovering member galleries, and connecting with other photographers at KUET.</p>
 
+            <?php
+            $total_photos = 0;
+            $collections = 0;
+            if (isset($conn) && $conn instanceof mysqli) {
+                $total_photos = (int)($conn->query("SELECT COUNT(*) AS cnt FROM photos")->fetch_assoc()['cnt'] ?? 0);
+                $collections = (int)($conn->query("SELECT COUNT(DISTINCT category) AS cnt FROM photos WHERE category IS NOT NULL AND category <> ''")->fetch_assoc()['cnt'] ?? 0);
+            }
+            ?>
+
             <div class="auth-stat-grid">
                 <div class="auth-stat">
-                    <span class="auth-stat-value">5K+</span>
+                    <span class="auth-stat-value"><?php echo $total_photos > 999 ? number_format($total_photos) . '+' : $total_photos; ?></span>
                     <span class="auth-stat-label">Total photos</span>
                 </div>
                 <div class="auth-stat">
-                    <span class="auth-stat-value">18</span>
+                    <span class="auth-stat-value"><?php echo $collections; ?></span>
                     <span class="auth-stat-label">Collections</span>
                 </div>
                 <div class="auth-stat">
-                    <span class="auth-stat-value">100%</span>
-                    <span class="auth-stat-label">Community run</span>
+                    <span class="auth-stat-value">Community</span>
+                    <span class="auth-stat-label">Run by members</span>
                 </div>
                 <div class="auth-stat">
-                    <span class="auth-stat-value">0$</span>
+                    <span class="auth-stat-value">Free</span>
                     <span class="auth-stat-label">Fee to join</span>
                 </div>
             </div>
