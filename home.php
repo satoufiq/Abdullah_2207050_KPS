@@ -7,13 +7,32 @@ require_once 'config.php';
 $page_title = 'Home';
 $current_page = 'home';
 
-// Fetch featured photos from database (will be used once DB is set up)
+// Prepare variables for featured section
+$photo_of_week = null;
 $featured_photos = [];
-if (isset($conn)) {
-    $query = "SELECT * FROM photos WHERE is_featured = 1 LIMIT 4";
-    $result = $conn->query($query);
-    if ($result) {
-        $featured_photos = $result->fetch_all(MYSQLI_ASSOC);
+
+if (isset($conn) && $conn instanceof mysqli) {
+    // Get photo of the week
+    $q1 = "SELECT p.id, p.title, p.image_url, p.description, p.category, p.location, p.lens_info, u.name 
+           FROM photos p 
+           JOIN users u ON p.photographer_id = u.id 
+           WHERE p.is_photo_of_week = 1 AND p.is_approved = 1 
+           LIMIT 1";
+    $res1 = $conn->query($q1);
+    if ($res1 && $res1->num_rows > 0) {
+        $photo_of_week = $res1->fetch_assoc();
+    }
+
+    // Get featured photos (limit to 2)
+    $q2 = "SELECT p.id, p.title, p.image_url, p.description, p.category, p.location, p.lens_info, u.name 
+           FROM photos p 
+           JOIN users u ON p.photographer_id = u.id 
+           WHERE p.is_featured = 1 AND p.is_approved = 1 
+           ORDER BY p.created_at DESC 
+           LIMIT 2";
+    $res2 = $conn->query($q2);
+    if ($res2) {
+        $featured_photos = $res2->fetch_all(MYSQLI_ASSOC);
     }
 }
 
@@ -48,6 +67,21 @@ include 'navbar.php';
             <h2>Weekly Best & Featured Images</h2>
         </div>
         <div class="featured-work-grid">
+            <div class="primary-col">
+                <?php if ($photo_of_week): ?>
+                    <article class="feature-card feature-primary reveal-target featured-photo" data-title="<?php echo htmlspecialchars($photo_of_week['title']); ?>" data-by="Photographer: <?php echo htmlspecialchars($photo_of_week['name']); ?>" data-meta="Category: <?php echo htmlspecialchars($photo_of_week['category']); ?> | Lens: <?php echo htmlspecialchars($photo_of_week['lens_info'] ?? 'Unknown'); ?> | Location: <?php echo htmlspecialchars($photo_of_week['location'] ?? 'Unknown'); ?>">
+                        <img src="<?php echo htmlspecialchars($photo_of_week['image_url']); ?>" alt="Photo of the week">
+                        <div class="feature-overlay"></div>
+                        <div class="feature-card-content">
+                            <p class="feature-label">🏆 Photo of the Week</p>
+                            <h3><?php echo htmlspecialchars($photo_of_week['title']); ?></h3>
+                            <p><?php echo htmlspecialchars(substr($photo_of_week['description'] ?? 'Exceptional work from our community', 0, 100)); ?></p>
+                            <button class="learn-more" data-lightbox-trigger>View Details</button>
+                        </div>
+                    </article>
+                <?php endif; ?>
+            </div>
+            <div class="secondary-stack">
             <?php
             // Fetch photo of the week
             $photo_of_week = null;
@@ -79,21 +113,10 @@ include 'navbar.php';
             }
             ?>
             
-            <?php if ($photo_of_week): ?>
-                <article class="feature-card feature-primary reveal-target featured-photo" data-title="<?php echo htmlspecialchars($photo_of_week['title']); ?>" data-by="Photographer: <?php echo htmlspecialchars($photo_of_week['name']); ?>" data-meta="Category: <?php echo htmlspecialchars($photo_of_week['category']); ?> | Lens: <?php echo htmlspecialchars($photo_of_week['lens_info'] ?? 'Unknown'); ?> | Location: <?php echo htmlspecialchars($photo_of_week['location'] ?? 'Unknown'); ?>">
-                    <img src="<?php echo htmlspecialchars($photo_of_week['image_url']); ?>" alt="Photo of the week">
-                    <div class="feature-card-content">
-                        <p class="feature-label">🏆 Photo of the Week</p>
-                        <h3><?php echo htmlspecialchars($photo_of_week['title']); ?></h3>
-                        <p><?php echo htmlspecialchars(substr($photo_of_week['description'] ?? 'Exceptional work from our community', 0, 100)); ?></p>
-                        <button class="learn-more" data-lightbox-trigger>View Details</button>
-                    </div>
-                </article>
-            <?php endif; ?>
-            
             <?php foreach ($featured_photos as $featured): ?>
-                <article class="feature-card reveal-target featured-photo" data-title="<?php echo htmlspecialchars($featured['title']); ?>" data-by="Photographer: <?php echo htmlspecialchars($featured['name']); ?>" data-meta="Category: <?php echo htmlspecialchars($featured['category']); ?>">
+                <article class="feature-card feature-secondary reveal-target featured-photo" data-title="<?php echo htmlspecialchars($featured['title']); ?>" data-by="Photographer: <?php echo htmlspecialchars($featured['name']); ?>" data-meta="Category: <?php echo htmlspecialchars($featured['category']); ?>">
                     <img src="<?php echo htmlspecialchars($featured['image_url']); ?>" alt="<?php echo htmlspecialchars($featured['title']); ?>">
+                    <div class="feature-overlay"></div>
                     <div class="feature-card-content">
                         <p class="feature-label">⭐ Featured Work</p>
                         <h3><?php echo htmlspecialchars($featured['title']); ?></h3>
@@ -102,6 +125,7 @@ include 'navbar.php';
                     </div>
                 </article>
             <?php endforeach; ?>
+            </div>
         </div>
     </section>
 
@@ -266,18 +290,7 @@ include 'navbar.php';
     </script>
     <?php else: ?>
 
-    <section class="newsletter reveal-target">
-        <div class="newsletter-content">
-            <h2>Stay Updated</h2>
-            <p>Get the latest photography tips, event announcements, and member spotlights delivered to your inbox.</p>
-            <form class="newsletter-form" method="POST" action="api/subscribe.php">
-                <input type="email" name="email" placeholder="Enter your email" required>
-                <input type="hidden" name="csrf_token" value="<?php echo get_csrf_token(); ?>">
-                <button type="submit" class="cta-button">Subscribe</button>
-            </form>
-            <p id="newsletter-message"></p>
-        </div>
-    </section>
+    <!-- Newsletter section removed per request -->
 
     <?php endif; ?>
 

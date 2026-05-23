@@ -74,14 +74,7 @@ CREATE TABLE IF NOT EXISTS event_registrations (
     UNIQUE KEY unique_registration(event_id, user_id)
 );
 
--- Newsletter Subscribers Table
-CREATE TABLE IF NOT EXISTS subscribers (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    subscribed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    unsubscribed_at TIMESTAMP NULL,
-    INDEX(email)
-);
+-- Newsletter feature removed: subscribers table omitted
 
 -- Contact Messages Table
 CREATE TABLE IF NOT EXISTS contact_messages (
@@ -100,6 +93,7 @@ CREATE TABLE IF NOT EXISTS team_members (
     id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
     position VARCHAR(100),
+    batch VARCHAR(40),
     order_index INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(user_id) REFERENCES users(id)
@@ -111,6 +105,7 @@ CREATE TABLE IF NOT EXISTS membership_applications (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
+    batch VARCHAR(40),
     experience ENUM('beginner', 'intermediate', 'advanced') DEFAULT 'beginner',
     interests JSON,
     message TEXT,
