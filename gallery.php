@@ -6,6 +6,7 @@ require_once 'config.php';
 
 $page_title = 'Gallery';
 $current_page = 'gallery';
+$body_class = 'luxury-site gallery-page';
 
 // Fetch gallery images
 $gallery_images = [];
@@ -43,7 +44,7 @@ include 'navbar.php';
 
 <div class="site-loader" id="site-loader"><span></span></div>
 
-<header class="page-hero gallery-hero reveal-target" style="background-image: linear-gradient(135deg, rgba(8,17,31,0.68), rgba(212,175,55,0.08)), url('images/collections/creative/474908052_1024641812833930_1691534703905046745_n.jpg'); background-size: cover; background-position: center;">
+<header class="page-hero gallery-hero reveal-target" style="background-image: linear-gradient(135deg, rgba(25,30,54,0.76), rgba(217,180,74,0.14)), url('images/collections/creative/474908052_1024641812833930_1691534703905046745_n.jpg'); background-size: cover; background-position: center;">
     <div class="page-hero-content">
         <p class="hero-badge">Curated Collection</p>
         <h1>Our Visual Archive</h1>
@@ -79,90 +80,63 @@ include 'navbar.php';
         </div>
     <?php else: ?>
         <div class="gallery-grid" id="gallery-grid">
+            <?php $gallery_index = 1; ?>
             <?php foreach ($gallery_images as $photo): ?>
                 <div class="gallery-item" data-category="<?php echo strtolower($photo['category']); ?>" data-photo-id="<?php echo $photo['id']; ?>">
                     <div class="gallery-card">
-                        <!-- Image Container -->
                         <div class="gallery-image-wrapper">
                             <img src="<?php echo htmlspecialchars($photo['image_url']); ?>" 
                                  alt="<?php echo htmlspecialchars($photo['title']); ?>"
                                  class="gallery-image"
                                  loading="lazy"
+                                 data-photo-id="<?php echo $photo['id']; ?>"
+                                   data-location="<?php echo htmlspecialchars($photo['location'] ?? ''); ?>"
+                                   data-lens-info="<?php echo htmlspecialchars($photo['lens_info'] ?? ''); ?>"
+                                   data-views="<?php echo (int) $photo['views']; ?>"
+                                   data-likes="<?php echo (int) $photo['likes']; ?>"
+                                   data-category="<?php echo htmlspecialchars($photo['category']); ?>"
                                  data-title="<?php echo htmlspecialchars($photo['title']); ?>"
                                  data-photographer="<?php echo htmlspecialchars($photo['name']); ?>">
                             
                             <?php if ($photo['is_photo_of_week']): ?>
                                 <div class="photo-badge premium-badge">🏆 Photo of the Week</div>
                             <?php endif; ?>
-
-                            <!-- Quick Action Overlay -->
-                            <div class="quick-actions-overlay">
-                                <button class="quick-action-btn view-full-btn" data-photo-id="<?php echo $photo['id']; ?>" title="View Full Size">
-                                    <span class="icon">👁️</span>
-                                    <span class="label">View</span>
-                                </button>
-                                <?php if (isset($_SESSION['user_id'])): ?>
-                                    <a href="api/download_photo.php?photo_id=<?php echo $photo['id']; ?>" 
-                                       class="quick-action-btn download-full-btn" title="Download">
-                                        <span class="icon">⬇️</span>
-                                        <span class="label">Download</span>
-                                    </a>
-                                <?php else: ?>
-                                    <button class="quick-action-btn download-full-btn" onclick="alert('Please login to download')" title="Download">
-                                        <span class="icon">⬇️</span>
-                                        <span class="label">Download</span>
-                                    </button>
-                                <?php endif; ?>
-                                <button class="quick-action-btn like-btn" data-photo-id="<?php echo $photo['id']; ?>" title="Like this photo">
-                                    <span class="icon">❤️</span>
-                                    <span class="label">Like</span>
-                                </button>
-                            </div>
                         </div>
 
-                        <!-- Card Content -->
                         <div class="gallery-card-body">
-                            <div class="card-header">
-                                <h3 class="photo-title"><?php echo htmlspecialchars($photo['title']); ?></h3>
-                                <span class="category-badge"><?php echo ucfirst($photo['category']); ?></span>
+                            <div class="card-topline">
+                                <span class="category-badge"><?php echo strtoupper($photo['category']); ?></span>
+                                <span class="card-index"><?php echo str_pad($gallery_index, 2, '0', STR_PAD_LEFT); ?></span>
                             </div>
 
-                            <p class="photographer-name">by <?php echo htmlspecialchars($photo['name']); ?></p>
+                            <h3 class="photo-title"><?php echo htmlspecialchars($photo['title']); ?></h3>
 
-                            <div class="photo-details">
-                                <?php if ($photo['location']): ?>
-                                    <div class="detail-item">
-                                        <span class="detail-icon">📍</span>
-                                        <span class="detail-text"><?php echo htmlspecialchars($photo['location']); ?></span>
-                                    </div>
-                                <?php endif; ?>
-                                
-                                <?php if ($photo['lens_info']): ?>
-                                    <div class="detail-item">
-                                        <span class="detail-icon">📷</span>
-                                        <span class="detail-text"><?php echo htmlspecialchars($photo['lens_info']); ?></span>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
+                            <p class="card-excerpt">
+                                <?php
+                                    $card_excerpt_parts = array();
+                                    if (!empty($photo['location'])) {
+                                        $card_excerpt_parts[] = $photo['location'];
+                                    }
+                                    if (!empty($photo['lens_info'])) {
+                                        $card_excerpt_parts[] = $photo['lens_info'];
+                                    }
+                                    if (empty($card_excerpt_parts)) {
+                                        $card_excerpt_parts[] = 'Clean frame and strong archival presence';
+                                    }
+
+                                    echo htmlspecialchars(implode(' • ', $card_excerpt_parts));
+                                ?>
+                            </p>
 
                             <div class="card-footer">
-                                <div class="stat-group">
-                                    <span class="stat-item">
-                                        <span class="stat-icon">👁️</span>
-                                        <span class="stat-value"><?php echo $photo['views']; ?></span>
-                                    </span>
-                                    <span class="stat-item">
-                                        <span class="stat-icon">❤️</span>
-                                        <span class="stat-value"><?php echo $photo['likes']; ?></span>
-                                    </span>
-                                </div>
                                 <button class="card-action-btn view-details-btn" data-photo-id="<?php echo $photo['id']; ?>">
-                                    View Details →
+                                    Open full frame
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <?php $gallery_index++; ?>
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
@@ -170,12 +144,30 @@ include 'navbar.php';
 
 <!-- Lightbox Modal -->
 <div id="lightbox" class="lightbox-modal">
-    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+    <button class="lightbox-close" onclick="photoLightboxClose()" aria-label="Close">&times;</button>
     <div class="lightbox-content">
         <img class="lightbox-image" src="" alt="">
         <div class="lightbox-info">
+            <p class="lightbox-kicker">Full Frame View</p>
             <h2 id="lightbox-title"></h2>
             <p id="lightbox-photographer"></p>
+            <p id="lightbox-meta" class="lightbox-meta"></p>
+
+            <div class="lightbox-stats">
+                <div class="lightbox-stat">
+                    <span class="stat-icon">👁️</span>
+                    <span id="lightbox-views"></span>
+                </div>
+                <div class="lightbox-stat">
+                    <span class="stat-icon">❤️</span>
+                    <span id="lightbox-likes"></span>
+                </div>
+            </div>
+
+            <div class="lightbox-actions">
+                <button type="button" id="lightbox-like-btn" class="download-btn lightbox-action-btn">Like</button>
+                <a id="lightbox-download" class="download-btn lightbox-action-btn" href="#" download>Download</a>
+            </div>
         </div>
     </div>
 </div>
@@ -214,20 +206,34 @@ include 'navbar.php';
     });
 
     // Lightbox functionality - FIXED
-    function openLightbox(img) {
+    function photoLightboxOpen(img) {
+        const card = img.closest('.gallery-item');
+        const photoId = img.getAttribute('data-photo-id') || (card ? card.getAttribute('data-photo-id') : '');
         const title = img.getAttribute('data-title') || 'Photo';
         const photographer = img.getAttribute('data-photographer') || 'Unknown';
+        const category = img.getAttribute('data-category') || (card ? card.getAttribute('data-category') : '');
+        const views = img.getAttribute('data-views') || '0';
+        const likes = img.getAttribute('data-likes') || '0';
+        const location = img.getAttribute('data-location') || '';
+        const lensInfo = img.getAttribute('data-lens-info') || '';
+        const downloadUrl = photoId ? 'api/download_photo.php?photo_id=' + photoId : '#';
         
         document.querySelector('.lightbox-image').src = img.src;
         document.querySelector('.lightbox-image').alt = title;
         document.getElementById('lightbox-title').textContent = title;
         document.getElementById('lightbox-photographer').textContent = 'by ' + photographer;
+        document.getElementById('lightbox-meta').textContent = [category ? category.toUpperCase() : '', location, lensInfo].filter(Boolean).join(' • ');
+        document.getElementById('lightbox-views').textContent = views + ' views';
+        document.getElementById('lightbox-likes').textContent = likes + ' likes';
+        document.getElementById('lightbox-download').setAttribute('href', downloadUrl);
+        document.getElementById('lightbox-download').setAttribute('download', '');
+        document.getElementById('lightbox-like-btn').setAttribute('data-photo-id', photoId);
         
         document.getElementById('lightbox').classList.add('show');
         document.body.style.overflow = 'hidden';
     }
 
-    function closeLightbox() {
+    function photoLightboxClose() {
         document.getElementById('lightbox').classList.remove('show');
         document.body.style.overflow = 'auto';
     }
@@ -236,21 +242,21 @@ include 'navbar.php';
     document.querySelectorAll('.view-full-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const img = this.closest('.gallery-image-wrapper').querySelector('.gallery-image');
-            openLightbox(img);
+            photoLightboxOpen(img);
         });
     });
 
     // Close lightbox when clicking outside
     document.getElementById('lightbox').addEventListener('click', function(e) {
         if (e.target === this || e.target.classList.contains('lightbox-close')) {
-            closeLightbox();
+            photoLightboxClose();
         }
     });
 
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-            closeLightbox();
+            photoLightboxClose();
         }
     });
 
@@ -278,12 +284,40 @@ include 'navbar.php';
         });
     });
 
+    document.getElementById('lightbox-like-btn').addEventListener('click', function() {
+        const photoId = this.getAttribute('data-photo-id');
+        if (!photoId) {
+            return;
+        }
+
+        fetch('api/like_photo.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'photo_id=' + photoId
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const likesEl = document.getElementById('lightbox-likes');
+                const currentLikes = parseInt((likesEl.textContent || '0').replace(/[^0-9]/g, ''), 10) || 0;
+                likesEl.textContent = (currentLikes + 1) + ' likes';
+                this.textContent = 'Liked';
+                this.disabled = true;
+                alert('Photo liked!');
+            } else {
+                alert(data.error || 'Please login to like photos');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
     // View details button
     document.querySelectorAll('.view-details-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            const photoId = this.getAttribute('data-photo-id');
             const img = this.closest('.gallery-item').querySelector('.gallery-image');
-            openLightbox(img);
+            photoLightboxOpen(img);
         });
     });
 </script>

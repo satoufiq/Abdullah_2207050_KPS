@@ -55,7 +55,7 @@ include 'navbar.php';
 <section class="events-container reveal-target">
     <div class="section-heading">
         <p class="eyebrow">What's Happening</p>
-        <h2>Photography Events <?php echo count($events) > 0 ? '(' . count($events) . ')' : ''; ?></h2>
+        <h2>Photography Events</h2>
     </div>
 
     <?php if (empty($events)): ?>
