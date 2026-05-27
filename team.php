@@ -6,11 +6,12 @@ require_once 'config.php';
 
 $page_title = 'Team';
 $current_page = 'team';
+$body_class = 'luxury-site team-page';
 
 // Fetch team members
 $team_members = [];
 if (isset($conn)) {
-    $query = "SELECT tm.id, tm.position, u.name, u.profile_image, u.bio, u.email 
+    $query = "SELECT tm.id, tm.position, tm.batch, u.name, u.profile_image, u.bio, u.email 
               FROM team_members tm
               JOIN users u ON tm.user_id = u.id
               ORDER BY tm.order_index ASC, tm.id ASC";
@@ -26,7 +27,7 @@ include 'navbar.php';
 
 <div class="site-loader" id="site-loader"><span></span></div>
 
-<header class="page-hero reveal-target" style="background-image: linear-gradient(rgba(8,17,31,0.58), rgba(8,17,31,0.88)), url('images/bts/shooting-setup.jpg');">
+<header class="page-hero reveal-target" style="background-image: linear-gradient(rgba(8,17,31,0.58), rgba(8,17,31,0.88)), url('images/bts/team-working.jpg');">
     <div class="page-hero-content">
         <p class="hero-badge">Our Team</p>
         <h1>Photographers and Collaborators</h1>
@@ -38,7 +39,7 @@ include 'navbar.php';
 <section class="team-section reveal-target" style="max-width: 1200px; margin: 3rem auto; padding: 0 2rem; opacity: 1 !important; transform: translateY(0) !important;">
     <div class="section-heading">
         <p class="eyebrow">Meet Our Team</p>
-        <h2>Team Members <?php echo !empty($team_members) ? '(' . count($team_members) . ')' : ''; ?></h2>
+        <h2>Team Members</h2>
     </div>
 
     <?php if (empty($team_members)): ?>
@@ -47,59 +48,108 @@ include 'navbar.php';
             <p style="color: #999; margin-top: 0.5rem;">Submit a membership application to join our team!</p>
         </div>
     <?php else: ?>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div class="team-grid">
             <?php foreach ($team_members as $member): ?>
-                <div class="team-card" style="
-                    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
-                    border: 2px solid rgba(212, 175, 55, 0.3);
-                    border-radius: 12px;
-                    padding: 2rem;
-                    text-align: center;
-                    transition: all 0.3s ease;
-                    cursor: pointer;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                ">
-                    <!-- Profile Image -->
-                    <?php if ($member['profile_image']): ?>
-                        <img src="<?php echo htmlspecialchars($member['profile_image']); ?>" 
-                             alt="<?php echo htmlspecialchars($member['name']); ?}"
-                             style="width: 120px; height: 120px; border-radius: 50%; border: 3px solid #d4af37; object-fit: cover; margin-bottom: 1rem;">
-                    <?php else: ?>
-                        <div style="width: 120px; height: 120px; border-radius: 50%; border: 3px solid #d4af37; background: rgba(212, 175, 55, 0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 3rem;">
-                            📷
-                        </div>
+                <?php
+                    $initials = '';
+                    foreach (preg_split('/\s+/', trim($member['name'])) as $part) {
+                        if ($part !== '') {
+                            $initials .= strtoupper(substr($part, 0, 1));
+                        }
+                    }
+                    if ($initials === '') {
+                        $initials = 'KPS';
+                    }
+                ?>
+                <article class="team-profile-card">
+                    <div class="team-avatar">
+                        <?php if (!empty($member['profile_image'])): ?>
+                            <img src="<?php echo htmlspecialchars($member['profile_image']); ?>" alt="<?php echo htmlspecialchars($member['name']); ?>">
+                        <?php else: ?>
+                            <span><?php echo htmlspecialchars($initials); ?></span>
+                        <?php endif; ?>
+                    </div>
+
+                    <h3><?php echo htmlspecialchars($member['name']); ?></h3>
+                    <p class="team-role"><?php echo htmlspecialchars($member['position'] ?? 'Member'); ?></p>
+
+                    <?php if (!empty($member['batch'])): ?>
+                        <p class="team-batch">Batch <?php echo htmlspecialchars($member['batch']); ?></p>
                     <?php endif; ?>
-                    
-                    <!-- Name -->
-                    <h3 style="color: #d4af37; margin: 0 0 0.5rem 0; font-size: 1.2rem;">
-                        <?php echo htmlspecialchars($member['name']); ?>
-                    </h3>
-                    
-                    <!-- Position -->
-                    <p style="color: #d4af37; margin: 0 0 1rem 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">
-                        <?php echo htmlspecialchars($member['position'] ?? 'Member'); ?>
-                    </p>
-                    
-                    <!-- Bio -->
-                    <?php if ($member['bio']): ?>
-                        <p style="color: #bbb; margin: 0 0 1rem 0; font-size: 0.95rem; line-height: 1.5; flex-grow: 1;">
-                            <?php echo htmlspecialchars($member['bio']); ?>
-                        </p>
+
+                    <?php if (!empty($member['bio'])): ?>
+                        <p class="team-bio"><?php echo htmlspecialchars($member['bio']); ?></p>
                     <?php endif; ?>
-                    
-                    <!-- Email Contact -->
-                    <?php if ($member['email']): ?>
-                        <a href="mailto:<?php echo htmlspecialchars($member['email']); ?>" 
-                           style="color: #d4af37; text-decoration: none; font-size: 0.9rem; padding: 0.6rem 1rem; border: 1px solid #d4af37; border-radius: 4px; transition: all 0.3s ease; display: inline-block; margin-top: auto;">
-                            📧 Contact
-                        </a>
-                    <?php endif; ?>
-                </div>
+
+                    <button type="button" class="team-details-btn" 
+                        data-name="<?php echo htmlspecialchars($member['name'], ENT_QUOTES); ?>" 
+                        data-position="<?php echo htmlspecialchars($member['position'] ?? 'Member', ENT_QUOTES); ?>" 
+                        data-batch="<?php echo htmlspecialchars($member['batch'] ?? '', ENT_QUOTES); ?>" 
+                        data-email="<?php echo htmlspecialchars($member['email'] ?? '', ENT_QUOTES); ?>" 
+                        data-bio="<?php echo htmlspecialchars($member['bio'] ?? '', ENT_QUOTES); ?>" 
+                        data-image="<?php echo htmlspecialchars($member['profile_image'] ?? '', ENT_QUOTES); ?>">
+                        View Details
+                    </button>
+                </article>
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
 </section>
+
+<!-- Member Details Modal -->
+<div id="member-modal" class="member-modal" aria-hidden="true">
+    <div class="member-modal-panel" role="dialog" aria-modal="true" aria-labelledby="member-modal-title">
+        <button type="button" class="member-modal-close" data-close aria-label="Close">×</button>
+        <p class="member-modal-tag">Team Member Details</p>
+        <h3 id="member-modal-title"></h3>
+        <p class="member-modal-role" id="member-modal-role"></p>
+        <p class="member-modal-meta" id="member-modal-batch"></p>
+        <p class="member-modal-profile" id="member-modal-bio"></p>
+        <a href="#" class="member-modal-email" id="member-modal-email"></a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('click', function(e){
+    // Ensure we operate on an Element node (not a Text node) and safely find the closest button
+    var tgt = e.target;
+    if (tgt && tgt.nodeType === 3) tgt = tgt.parentNode; // text node -> element
+    var btn = (tgt && typeof tgt.closest === 'function') ? tgt.closest('.team-details-btn') : null;
+    if(btn){
+        var modal = document.getElementById('member-modal');
+        document.getElementById('member-modal-title').textContent = btn.dataset.name || '';
+        document.getElementById('member-modal-role').textContent = btn.dataset.position || '';
+        document.getElementById('member-modal-batch').textContent = btn.dataset.batch ? ('Batch ' + btn.dataset.batch) : 'Batch not listed';
+        document.getElementById('member-modal-bio').textContent = btn.dataset.bio || '';
+        var emailEl = document.getElementById('member-modal-email');
+        if(btn.dataset.email){
+            emailEl.href = 'mailto:' + btn.dataset.email;
+            emailEl.textContent = 'Email: ' + btn.dataset.email;
+            emailEl.style.display = 'inline-block';
+        } else {
+            emailEl.style.display = 'none';
+        }
+        modal.setAttribute('aria-hidden','false');
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+    }
+    if(e.target.closest('[data-close]') || e.target.closest('.member-modal-close')){
+        var modal = document.getElementById('member-modal');
+        modal.setAttribute('aria-hidden','true');
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+    }
+});
+document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+        var modal = document.getElementById('member-modal');
+        if(modal && modal.classList.contains('is-open')){
+            modal.setAttribute('aria-hidden','true');
+            modal.classList.remove('is-open');
+            document.body.style.overflow = '';
+        }
+    }
+});
+</script>
 
 <?php include 'footer.php'; ?>
