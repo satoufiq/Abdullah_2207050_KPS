@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Redirect HTML files to PHP equivalents
+    RewriteRule ^home\.html$ home.php [L]
+    RewriteRule ^about\.html$ about.php [L]
+    RewriteRule ^gallery\.html$ gallery.php [L]
+    RewriteRule ^events\.html$ events.php [L]
+    RewriteRule ^contact\.html$ contact.php [L]
+    RewriteRule ^login\.html$ login.php [L]
+    RewriteRule ^register\.html$ register.php [L]
+    RewriteRule ^profile\.html$ profile.php [L]
+    RewriteRule ^control\.html$ control.php [L]
+    RewriteRule ^team\.html$ team.php [L]
+</IfModule>
+
+# Allow PHP execution in HTML files
+<IfModule mod_php.c>
+    AddType application/x-httpd-php .html
+</IfModule>
