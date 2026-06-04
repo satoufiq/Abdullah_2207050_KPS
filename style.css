@@ -149,16 +149,7 @@
     padding-left: 2rem;
 }
 
-.admin-btn {
-    background-color: rgba(212, 175, 55, 0.2);
-    border: 1px solid var(--accent-gold);
-    padding: 0.5rem 1rem !important;
-    border-radius: 4px;
-}
-
-.admin-btn:hover {
-    background-color: rgba(212, 175, 55, 0.4);
-}
+/* removed unused .admin-btn styles (no markup references) */
 
 /* Mobile navbar */
 @media (max-width: 768px) {
@@ -817,9 +808,6 @@ a:hover {
 .dropdown-link.logout-link:hover {
     border-left-color: #ff6b6b;
     color: #ff6b6b;
-}
-    display: inline-block;
-    width: 100%;
 }
 
 .logo-section {

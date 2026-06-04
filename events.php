@@ -15,12 +15,11 @@ if (isset($conn)) {
     if ($result) {
         $events = $result->fetch_all(MYSQLI_ASSOC);
     } else {
-        error_log("Events query error: " . $conn->error);
+        // error_log("Events query error: " . $conn->error);
     }
 }
 
-// DEBUG: Log number of events found
-error_log("Events found: " . count($events));
+// (development logs removed)
 
 // Check if user is registered for events
 $user_registrations = [];

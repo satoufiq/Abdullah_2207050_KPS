@@ -128,7 +128,7 @@
                 if (profileMenu) profileMenu.style.display = 'none';
             }
         } catch (error) {
-            console.log('Session check failed');
+            // Session check failed — ignore silently in production
         }
     }
     
